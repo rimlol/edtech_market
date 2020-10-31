@@ -1,0 +1,33 @@
+#header {
+    height: 50px;
+    background: linear-gradient(135deg, #1650e2 0%, #7e51ec 100%);
+    color: white;
+}
+
+#branding h1 {
+    color: white;
+}
+
+a:link,
+a:visited {
+    color: #10284e;
+}
+
+div.breadcrumbs {
+    background: white ;
+    color: blue;
+}
+
+div.breadcrumbs a {
+    color: black;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: linear-gradient(135deg, #1650e2 0%, #7e51ec 100%);
+    color: white;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: linear-gradient(135deg, #1650e2 0%, #7e51ec 100%);
+    color: white;
+}

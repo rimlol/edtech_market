@@ -1,0 +1,75 @@
+{% load static %}
+
+<!--Top Bar-->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-7 col-lg-7 col-sm-4 col-7">
+                        <div class="top-bar-left d-flex">
+
+                            <div class="clearfix">
+                                <ul class="contact border-left">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-sm-8 col-5">
+                        <div class="top-bar-right">
+                            <ul class="custom">
+                                <li
+                                {% comment %} {% if 'register' in request.path %}
+                                class="active"
+                                {% endif %} {% endcomment %}
+                                >
+                                    <a href="{% url 'account_signup' %}?next={{request.path}}" class=""><i class="fa fa-user mr-1"></i> <span>Регистрация</span></a>
+                                </li>
+                                
+                                 <li
+                                {% comment %} {% if 'login' in request.path %}
+                                class="active"
+                                {% endif %} {% endcomment %}
+                                >
+                                    <a href="{% url 'account_login' %}?next={{request.path}}" class=""><i class="fa fa-sign-in mr-1"></i> <span>Войти</span></a>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="listing.html" class="" data-toggle="dropdown"><i class="fa fa-home mr-1"></i><span>ЛК</span></a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a href="listing.html" class="dropdown-item" >
+                                            <i class="dropdown-icon icon icon-user"></i> My Profile
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon icon icon-speech"></i> Inbox
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon icon icon-bell"></i> Notifications
+                                        </a>
+                                        <a href="mydash.html" class="dropdown-item" >
+                                            <i class="dropdown-icon  icon icon-settings"></i> Account Settings
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon icon icon-power"></i> Log out
+                                        </a>
+                                    </div>
+                                </li>
+                                 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Top Bar-->
+
+        <!-- Mobile Header -->
+            <div class="sticky">
+                    <div class="horizontal-header clearfix ">
+                    <div class="container">
+                        <a id="horizontal-navtoggle" class="animated-arrow"><span></span></a>
+                        <span class="smllogo"><img src="{% static '/images/brand/logo.png' %}" width="120" alt="img"/></span>
+                        <a href="#" class="callusbtn bg-light"><i class="fa fa-bell text-body" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        <!-- /Mobile Header -->

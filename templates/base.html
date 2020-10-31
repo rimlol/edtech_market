@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="Description" content="Job board html template">
+        <meta name="Author" content="Spruko Technologies Private Limited">
+        <meta name="keywords" content="bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+    
+        <!-- Title -->
+		<title>rejoin - Job board html template</title>
+{% comment %} 	
+		<!-- Notifications  Css -->
+		<link href="{% static '/plugins/notify/css/jquery.growl.css' %}" rel="stylesheet" />
+ {% endcomment %}
+
+		<!-- Bootstrap Css -->
+		<link href="{% static '/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+
+		<!-- Dashboard Css -->
+		<link href="{% static '/css/style.css' %}" rel="stylesheet" />
+
+		<!-- Font-awesome  Css -->
+		<link href="{% static '/css/icons.css'%}" rel="stylesheet"/>
+
+		<!--Select2 Plugin -->
+		<link href="{% static '/plugins/select2/select2.min.css' %}" rel="stylesheet" />
+
+		<!-- Cookie css -->
+		<link href="{% static '/plugins/cookie/cookie.css' %}" rel="stylesheet">
+
+		<!-- Custom scroll bar css-->
+		<link href="{% static '/plugins/scroll-bar/jquery.mCustomScrollbar.css' %}" rel="stylesheet" />
+
+		<!-- jquery ui RangeSlider -->
+		<link href="{% static '/plugins/jquery-uislider/jquery-ui.css' %}" rel="stylesheet">
+
+		<!-- COLOR-SKINS -->
+		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static '/color-skins/color-skins/color10.css' %}" />
+
+    <title> Marketplace {% block title %}
+    {% endblock title %}</title>
+</head>
+<body class='main-body'>
+
+    <!--Loader-->
+    <div id="global-loader">
+        <img src="{% static '/images/loader.svg' %}" class="loader-img" alt="">
+    </div>
+
+    <!--Header Main-->
+    <div class="header-main">
+        {%include 'partials/_topbar.html'%}
+    <!--Horizontal-main-->
+        <div class="horizontal-main clearfix">
+            <div class="horizontal-mainwrapper container clearfix">
+                <div class="desktoplogo">
+                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/logo.png' %}" alt=""></a>
+                </div>
+                <div class="desktoplogo-1">
+                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/logo.png' %}" alt=""></a>
+                </div>
+                <!--Nav-->
+                {%include 'partials/_navbar.html'%}
+            </div>
+        </div>
+        <!--/Horizontal-main-->
+    </div>
+    <!--/Header Main-->
+
+
+ {% block content %} {% endblock %}
+ 
+<!--Footer-->
+{%include 'partials/_footer.html'%}
+
+
+        {% comment %} 
+            <!-- Top bar -->
+            {% include 'partials/_topbar.html'%}
+
+            <!-- Nav bar -->
+            {% include 'partials/_navbar.html'%}
+
+
+
+            {% block content %} {% endblock %}
+
+            <!-- Footer -->
+            {% include 'partials/_footer.html'%}
+
+            <script src="{% static '/js/jquery-3.3.1.min.js' %} "></script>
+            <script src="{% static '/js/bootstrap.bundle.min.js' %} "></script>
+            <script src="{% static '/js/lightbox.min.js' %} "></script>
+            <script src="{% static '/js/main.js' %} "></script> {% endcomment %}
+
+	    <!--Footer Section-->
+
+		<!-- Notification -->
+		<a href="advanced-search.html" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a>
+
+		<!-- Back to top -->
+		<a href="#top" id="back-to-top" ><i class="fa fa-arrow-up"></i></a>
+
+		<!-- JQuery js-->
+		<script src="{% static '/js/vendors/jquery-3.2.1.min.js' %}"></script>
+
+		<!-- Bootstrap js -->
+		<script src="{% static 'plugins/bootstrap-4.3.1-dist/js/popper.min.js'%}"></script>
+		<script src="{% static '/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+
+		<!--JQuery Sparkline Js-->
+		<script src="{% static '/js/vendors/jquery.sparkline.min.js' %}"></script>
+
+		<!-- Circle Progress Js-->
+		<script src="{% static '/js/vendors/circle-progress.min.js' %}"></script>
+
+		<!-- Star Rating Js-->
+		<script src="{% static '/plugins/rating/jquery.rating-stars.js' %} "></script>
+
+		<!--Owl Carousel js -->
+		<script src="{% static '/plugins/owl-carousel/owl.carousel.js' %}"></script>
+
+		<!--Horizontal Menu-->
+		<script src="{% static '/plugins/horizontal/horizontal-menu/horizontal.js' %}"></script>
+
+		<!--JQuery TouchSwipe js-->
+		<script src="{% static '/js/jquery.touchSwipe.min.js' %}"></script>
+
+		<!--Select2 js -->
+		<script src="{% static '/plugins/select2/select2.full.min.js' %}"></script>
+		<script src="{% static '/js/select2.js' %}"></script>
+
+		<!-- Cookie js -->
+		<script src="{% static '/plugins/cookie/jquery.ihavecookies.js' %}"></script>
+		<script src="{% static '/plugins/cookie/cookie.js' %}"></script>
+
+		<!-- Ion.RangeSlider -->
+		<script src="{% static '/plugins/jquery-uislider/jquery-ui.js' %}"></script>
+
+		<!-- sticky Js-->
+		<script src="{% static '/js/sticky.js' %}"></script>
+
+		<!-- Custom scroll bar Js-->
+		<script src="{% static '/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+
+		<!--Showmore Js-->
+		<script src="{% static '/js/jquery.showmore.js'%}"></script>
+		<script src="{% static '/js/showmore.js' %}"></script>
+
+		<!-- Scripts Js-->
+		<script src="{% static '/js/scripts2.js' %}"></script>
+
+		<!-- Custom Js-->
+		<script src="{% static '/js/custom.js'%}"></script>
+
+		<!-- Google Maps Plugin -->
+		<script src="https://maps.google.com/maps/api/js?key=AIzaSyCnU5YfCHwqd7c5oDhqTjwSV9UUNXGo5zw"></script>
+		<script src="{%static '/plugins/maps-google/jquery.googlemap.js'%}"></script>
+		<script src="{%static '/plugins/maps-google/map.js' %}"></script>
+
+		<!--Select2 js -->
+		<script src="{%static '/plugins/select2/select2.full.min.js' %}"></script>
+		<script src="{%static '/js/select2.js' %}"></script>
+
+
+		<!-- Count Down-->
+		<script src="{% static '/plugins/count-down/jquery.lwtCountdown-1.0.js' %}"></script>
+
+
+		<!-- sticky Js-->
+		<script src="{% static '/js/sticky.js' %}"></script>
+
+		<!-- Vertical scroll bar Js-->
+		<script src="{% static '/plugins/vertical-scroll/jquery.bootstrap.newsbox.js' %}"></script>
+		<script src="{% static '/plugins/vertical-scroll/vertical-scroll.js'%}"></script>
+
+		<!-- Swipe Js-->
+		<script src="{% static '/js/swipe.js' %}"></script>
+
+		<!-- Cover-image Js-->
+		<script src="{% static '/js/scripts2.js' %}"></script>
+
+		<!-- Notifications js -->
+		<script src="{% static '/plugins/notify/js/rainbow.js' %}"></script>
+		<script src="{% static '/plugins/notify/js/sample.js' %}"></script>
+		<script src="{% static '/plugins/notify/js/jquery.growl.js' %}"></script>
+
+    </body>
+
+</html>
