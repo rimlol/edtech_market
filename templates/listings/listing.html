@@ -15,13 +15,13 @@
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
 						<li class="breadcrumb-item"><a href="#">{{listing.direction_name}}</a></li>
-						<li class="breadcrumb-item active" aria-current="page">{{listing.course_name}}</li>
+						<li class="breadcrumb-item active" aria-current="page">{{listing.course_name}} ({{listing.vendor}})</li>
 					</ol>
 				</div>
 			</div>
 		</div>
 		<!--/BreadCrumb-->
-
+		
 		<!--Job listing-->
 		<section class="sptb">
 			<div class="container">
@@ -36,11 +36,12 @@
 								<div class="profile-pic mb-0">
 									<img src="{% static '/images/users/male/25.jpg' %}" class="brround avatar-xxl" alt="user">
 									<div class="">
-										<a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-1 font-weight-semibold">{{listing.vendor}}<span class="fs-14 ml-2">4.5 <i class="fa fa-star text-yellow"></i></h4></a> 
+										<a href="{% url 'vendor' vendor.slug %}"
+										 class="text-dark"><h4 class="mt-3 mb-1 font-weight-semibold">{{listing.vendor}}<span class="fs-14 ml-2">4.5 <i class="fa fa-star text-yellow"></i></h4></a> 
 										<span class="text-gray">Описание школы</span>
 										<span class="text-muted">Дата основания November 2008</span>
                                         
-										<h6 class="mt-2 mb-0"><a href="#" class="btn btn-primary btn-sm">Все курсы школы</a></h6>
+										<h6 class="mt-2 mb-0"><a href="{% url 'vendor' vendor.slug  %}" class="btn btn-primary btn-sm">Все курсы школы</a></h6>
 									</div>
 
 								</div>
@@ -81,7 +82,7 @@
 							<div class="card-footer bg-light-50">
 								<div class="text-left">
 									
-									<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#contact"><i class="fa fa-star"></i> Отзывы о школе</a>
+									<a href="{% url 'vendor' vendor.slug  %}" class="btn btn-primary" ><i class="fa fa-star"></i> Отзывы о школе</a>
 								</div>
 							</div>
 						</div>
@@ -126,17 +127,20 @@
 
 						<div class="card mb-lg-0">
                             <div class="card-header">
-								<h3 class="card-title">Similar Jobs</h3>
+								<h3 class="card-title">Похожие курсы</h3>
 							</div>
                             <div class="card-body pb-3">
 								<ul class="vertical-scroll">
                                 
-                                    {% comment %} {% for lis in listings %}
-                                    {% if lis.direction_name == listing.direction_name and lis.id != listing.id%}
+                                    {% for lis in listings %}
+                                    {% if lis.slug != listing.slug%}
 									<li class="item">
 										<div class="item-det card-body">
 											<a href="#" class="text-dark"><h4 class="mb-2 fs-16 font-weight-semibold">{{lis.course_name}}</h4></a>
-											<small class="text-muted"><i class="si si-briefcase text-muted"></i> {{lis.vendor}}  <i class="si si-location-pin text-muted ml-3"></i> {{lis.direction_name}}</small>
+											<small class="text-muted"><i class="si si-briefcase text-muted"></i> {{lis.vendor}} 
+											<i class="si si-location-pin text-muted ml-3"></i> {{lis.direction_name}} 
+											<i class="si si-location-pin text-muted ml-3"></i> {{lis.price_full | intcomma}} Р</small>
+											
 											<div class="icons mt-3 pb-0 ">
 												<a href="#" class="btn btn-primary btn-sm icons" data-toggle="modal" data-target="#apply"> Apply</a>
 												<a href="#" class="btn btn-light btn-sm icons"> View Details</a>
@@ -144,7 +148,7 @@
 										</div>
 									</li>
                                     {% endif %}
-                                    {% endfor %}  {% endcomment %}
+                                    {% endfor %}  
 
                                     {% comment %} Не работает фор {% endcomment %}
 
@@ -157,19 +161,24 @@
 					<!--/Left Side Content-->
 
 					<div class="col-xl-8 col-lg-12 col-md-12">
-																	{% include 'partials/_allerts.html' %}
 
 						<!--Jobs Description-->
 						<div class="card overflow-hidden">
-							<div class="ribbon ribbon-top-left text-danger"><span class="bg-danger">- 40%</span></div>
+							{% comment %} <div class="ribbon ribbon-top-left text-danger"><span class="bg-danger">- 40%</span></div> {% endcomment %}
 							<div class="card-body h-100">
 								<div class="row">
+												
+
 									<div class="col">
+									
 										<div class="profile-pic mb-0">
 											<div class="d-md-flex">
+												{% if listing.main_image %}
 												<img src="{{ listing.main_image.url}}"  class="w-20 h-20" alt="user">
+												{% endif %}
 												<div class="ml-4">
-													<a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold">{{listing.course_name}}</h4></a>
+													<a href="listing.link_to_product" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold">{{listing.course_name}}</h4></a>
+													
 													<div class="">
 														<ul class="mb-0 d-flex">
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-briefcase text-muted mr-1"></i> {{listing.direction_name}}</a></li>
@@ -179,65 +188,67 @@
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-eye text-muted mr-1"></i> 765</a></li>
 														</ul>
 														<div class="rating-stars d-inline-flex mb-4 mr-3 mt-2">
-                                                            {% ratings listing %}
+                                                            
                                                             
 															                                                           
-														</div>		
+														</div>	
+															
 													</div>
 													<div class="icons">
 														<a href="#" class="btn btn-info icons" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Промокод</a>
 														<a href="{{listing.link_to_product}}" class="btn btn-primary icons" data-toggle="modal" data-target="#contact"><i class="si si-phone mr-1"></i> К курсу</a>
+													
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+									{% ratings listing %}
 								</div>
 							</div>
 							<div class="card-body border-top">
 								<h4 class="mb-4 card-title">Описание Курса</h4>
 								<div class="mb-4">
-									<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atcorrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-									<p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoraliz the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble thena bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+									<p>{{listing.description_short}}</p>
+									<p>{{listing.description_full}}</p>
+
+									<p>{{listing.specials}}</p>
+
 								</div>
-								<h4 class="mb-4 card-title">Job Details</h4>
+								<h4 class="mb-4 card-title">Подробности программы</h4>
 								<div class="row">
 									<div class="col-xl-12 col-md-12">
 										<div class="table-responsive">
 											<table class="table row table-borderless w-100 m-0 text-nowrap ">
 												<tbody class="col-lg-12 col-xl-6 p-0">
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Job Type</span></td> <td><span>:</span></td> <td><span>  Full Time</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Направление</span></td> <td><span>:</span></td> <td><span> {{listing.direction_name}}</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Role</span></td> <td><span>:</span></td> <td><span> Hard ware Technician</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold"> Школа </span></td> <td><span>:</span></td> <td><span> {{listing.vendor}}</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Min Salary</span></td> <td><span>:</span></td> <td><span> $12,000</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Продолжительность </span></td> <td><span>:</span></td> <td><span> {{listing.program_length}} мес.</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Max Salary</span></td> <td><span>:</span></td> <td><span> $15,000</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Формат</span></td> <td><span>:</span></td> <td><span> {{listing.format}}</span></td>
 													</tr>
-													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Min Exp</span></td> <td><span>:</span></td> <td><span>0yrs</span></td>
-													</tr>
+													
 												</tbody>
 												<tbody class="col-lg-12 col-xl-6 p-0">
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Max Exp</span></td> <td><span>:</span></td> <td><span> 2yrs</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Полная стоимость</span></td> <td><span>:</span></td> <td><span> {{listing.price_full | intcomma }} руб.</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Languages</span></td> <td><span>:</span></td> <td><span> English , Hindi</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Стоимость в рассрочку</span></td> <td><span>:</span></td> <td><span> от {{listing.price_per_month | intcomma}} руб./мес.</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Locality</span></td> <td><span>:</span></td> <td><span> USA , UK , India</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Академ. часов</span></td> <td><span>:</span></td> <td><span> {{listing.academic_hours}} ч.</span></td>
 													</tr>
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Eligibility</span></td> <td><span>:</span></td> <td><span> Any Graduate</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Трудоустройство</span></td> <td><span>:</span></td> <td><span> Any Graduate</span></td>
 													</tr>
-													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Company</span></td> <td><span>:</span></td> <td><span> Acme Corporation pvt ltd</span></td>
-													</tr>
+													
 												</tbody>
 											</table>
 										</div>
@@ -574,7 +585,11 @@
 									</div>
 									{% else %}
 									<h3>Leave a comment</h3>
+										{% if user.is_authenticated %}
+
 									<form class="card-body" method="post">
+									{% csrf_token %}
+
 									<div class="form-group">
 										<input type="number" class="form-control" name="overall_rate" placeholder="Поставить рейтинг">
 									</div>
@@ -586,9 +601,21 @@
 										<textarea class="form-control" name="comment" rows="6" placeholder="Отзыв"></textarea>
 									</div>
 									{% comment %} {{ comment_form.as_p }} {% endcomment %}
-									{% csrf_token %}
-									<button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+									
+										<button type="submit" class="btn btn-primary  btn-lg">Отправить</button>
+
+										{% else %}
+										<p>Войдите или зарегистрируйтесь, чтобы оставить отзыв</p>
+										<a href="{% url 'account_login' %}?next={{request.path}}" class="btn btn btn-primary"> Вход</a>
+										<a href="{% url 'account_signup' %}?next={{request.path}}" class="btn btn btn-info"> Регистрация</a>
+									
+
+										
+
+										{% comment %} <a href="#" class="btn btn-info icons" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Отправить</a> {% endcomment %}
+
 									</form>
+										{% endif %}
 									{% endif %}
 								</div>
 								</div>
@@ -706,7 +733,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLongTitle">Apply Jobs</h5>
+						<h5 class="modal-title" id="exampleModalLongTitle">Для отправки отзыва войдите или зарегистрируйтесь</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						  <span aria-hidden="true">&times;</span>
 						</button>
@@ -719,41 +746,20 @@
 									<input type="text" class="form-control" placeholder="Name">
 								</div>
 							</div>
-							<div class="col-sm-6 col-md-6">
-								<div class="form-group">
-									<label class="form-label">Phone number</label>
-									<input type="number" class="form-control" placeholder="Number">
-								</div>
-							</div>
+							
 							<div class="col-sm-6 col-md-6">
 								<div class="form-group">
 									<label class="form-label">Email</label>
 									<input type="email" class="form-control" placeholder="Email address">
 								</div>
 							</div>
-							<div class="col-sm-6 col-md-6">
-								<label class="form-label">Choose Location</label>
-								<select name="country" id="select-countries3" class="form-control custom-select">
-									<option >Search</option>
-									<option value="2">USA</option>
-									<option value="3">UK</option>
-									<option value="4">India</option>
-								</select>
-							</div>
-							<div class="col-sm-12">
-								<div class="form-group mb-0">
-									<label class="form-label">File Attachment</label>
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" name="example-file-input-custom">
-										<label class="custom-file-label">Attach file</label>
-									</div>
-								</div>
-							</div>
+						
+						
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-success">Submit</button>
+						<button type="button" class="btn btn-danger" >Регистрация</button>
+						<button type="button" class="btn btn-success">Вход</button>
 					</div>
 				</div>
 			</div>

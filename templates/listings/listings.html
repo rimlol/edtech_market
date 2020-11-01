@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load ratings %}
 
 {% block content %}
 
@@ -250,7 +251,10 @@
 														<div class="item-card9-imgs">
 														<div class="arrow-ribbon bg-purple">{{listing.vendor}}</div>
 															<a href="{% url 'listing' listing.slug %}"></a>
+															{% if listing.main_image %}
+															
 															<img src="{{ listing.main_image.url}}" alt="img" class="h-100">
+															{% endif %}
 														</div>
 													</div>
 													<div class="card overflow-hidden  border-0 box-shadow-0 border-left br-0 mb-0">
@@ -308,9 +312,118 @@
 
 
 										</div>
+										
 										<div class="tab-pane active" id="tab-12">
-											<div class="row">
+										<div class="input-group">
+									<input type="text" class="form-control br-tl-7 br-bl-7" placeholder="">
+									<div class="input-group-append ">
+										<button type="button" class="btn btn-white br-tr-7 br-br-7">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</div>
+								</div>
+								<div class="card mt-5 store">
+									<div class="table-responsive">
+										<table class="table card-table table-vcenter text-nowrap">
+										{% if listings %}
+											{% for listing in listings %}
+											<tr>
+												<td>{{listing.course_name}}		{{rating}}</td>
+												<td>
+													<div class="rating-stars block">
+														<div class="rating-stars-container">
+														<a><i class="fa fa-star{% if comment.overall_rate >= 1 %} text-yellow{% endif %}"></i></a>
 
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">987 views</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">50% off</td>
+												<td class="text-right">
+													<strong>{{listing.price_full | intcomma}}</strong>
+												</td>
+											</tr>
+											{% endfor %}
+										{% endif %}
+											<tr>
+												<td> Occational Special Edition</td>
+												<td>
+													<div class="rating-stars block">
+														<div class="rating-stars-container">
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">675 views</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap ">60% off</td>
+												<td class="text-right">
+													<strong>$2,679</strong>
+												</td>
+											</tr>
+											<tr>
+												<td>Sares
+													<span class="label label-warning arrowed-in-right arrowed">Limited</span>
+												</td>
+												<td>
+													<div class="rating-stars block">
+														<div class="rating-stars-container">
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+															<div class="rating-star sm">
+																<i class="fa fa-star"></i>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">765 views</td>
+												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">25% off</td>
+												<td class="text-right">
+													<strong>$999</strong>
+												</td>
+											</tr>
+											
+										</table>
+									</div>
+											<div class="row">
 												{% if listings %}
 													{% for listing in listings %}
 													<div class="col-lg-6 col-md-6 col-sm-12 col-xl-4">
@@ -318,7 +431,10 @@
 														<div class="item-card9-img border-bottom">
 															<div class="item-card9-imgs">
 																<a href="{% url 'listing' listing.slug %}"></a>
+																{% if listing.main_image %}
+
 																<img src="{{ listing.main_image.url}}" alt="img" class="h-100">
+																{% endif %}
 															</div>
 														</div>
 														<div class="card-body">
@@ -373,6 +489,7 @@
 							</div>
 						</div>
 						<!--/Job lists-->
+						
 										<div class="col-md-12">
 						<div class="card">
 							<div class="card-body items-gallery">
@@ -397,7 +514,11 @@
 													<div class="card mb-0 shadow-none">
 														<div class="item-card9-img">
 															<div class="arrow-ribbon bg-purple">{{listing.vendor}}</div>
+																{% if listing.main_image %}
+
 															  <img src="{{ listing.main_image.url}}" alt="img" class="cover-image">
+
+															  	{% endif %}
 															<div class="item-card9-icons">
 																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class="fa fa fa-heart-o"></i></a>
 																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class="fa fa fa-share-alt"></i></a>

@@ -1,12 +1,33 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% comment %} {% load account socialaccount %} {% endcomment %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
+
+<!--Sliders Section-->
+		<section>
+			<div class="bannerimg cover-image bg-background3" data-image-src="../assets/images/banners/banner2.jpg">
+				<div class="header-text mb-0">
+					<div class="container">
+						<div class="text-center text-white">
+							<h1 class="">Вход</h1>
+							<ol class="breadcrumb text-center">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="#">Pages</a></li>
+								<li class="breadcrumb-item active text-white" aria-current="page">Login</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Sliders Section-->
+
 
 <h1>{% trans "Вход" %}</h1>
 
@@ -34,14 +55,70 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <a href="{{ signup_url }}">Регистрация</a>{% endblocktrans %}</p>
 {% endif %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Войти" %}</button>
-</form>
+
+
+		<!--Login-Section-->
+		<section class="sptb">
+			<div class="container customerpage">
+				<div class="row">
+					<div class="single-page" >
+						<div class="col-lg-5 col-xl-4 col-md-7 d-block mx-auto">
+							<div class="wrapper wrapper2">
+								<div class="p-4 mb-5">
+									<h4 class="text-left font-weight-semibold fs-16">Login With</h4>
+									<div class="btn-list d-sm-flex">
+										<a href="https://www.google.com/gmail/" class="btn btn-primary mb-sm-0"><i class="fa fa-google fa-1x mr-2"></i> Google</a>
+										<a href="https://twitter.com/" class="btn btn-secondary mb-sm-0"><i class="fa fa-twitter fa-1x mr-2"></i> Twitter</a>
+										<a href="https://www.facebook.com/" class="btn btn-info mb-0"><i class="fa fa-facebook fa-1x mr-2"></i> Facebook</a>
+									</div>
+								</div>
+								<hr class="divider">
+                                {% include 'partials/_allerts.html' %}
+
+                <form class="card-body" tabindex="500" method="POST" action="{% url 'account_login' %}">
+                  {% csrf_token %}
+                  {{ form |crispy  }}
+                  {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
+                  
+									
+																<div class="p-4 mb-5">
+
+                 
+										</div>
+                  
+									<div class="btn-list d-sm-flex">
+                  
+                  <a class="btn btn-light btn" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль?" %}</a>
+                  <button class="btn btn-primary btn-block" type="submit">{% trans "Войти" %}</button>
+                  </div>
+                </form>
+								{% comment %} <form action='{% url 'account_login' %}' method='POST' id="login" class="card-body" tabindex="500">
+                                        {% csrf_token %}
+
+
+									<div class="mail">
+										<input type="email" name="email">
+										<label>Mail</label>
+									</div>
+									<div class="passwd">
+										<input type="password" name="password">
+										<label>Password</label>
+									</div>
+									<div class="submit">
+										<input type="submit" value="Войти" class="btn btn-primary btn-block">
+									</div>
+									<p class="mb-2"><a href="forgot.html" >Forgot Password</a></p>
+									<p class="text-dark mb-0">Don't have account?<a href="register.html" class="text-primary ml-1">Sign UP</a></p>
+								</form> {% endcomment %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/Login-Section-->
+
 
 {% endblock %}

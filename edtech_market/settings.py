@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'star_ratings',
+    'crispy_forms',
+
 
 ]
 
@@ -165,7 +167,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'edtech_market/static')
     ]
 
+# Media Folder Settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Star rating
+STAR_RATINGS_STAR_WIDTH = 13
+
+
 
 # Allauth
 
 SITE_ID = 1
+
+#crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
