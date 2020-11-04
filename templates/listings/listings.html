@@ -11,18 +11,7 @@
 				<div class="row">
 	<!--Left Side Content-->
 	<div class="col-xl-3 col-lg-4 col-md-12">
-		<div class="card">
-			<div class="card-body">
-				<div class="input-group">
-					<input type="text" class="form-control br-tl-3 br-bl-3" placeholder="Search">
-					<div class="input-group-append ">
-						<button type="button" class="btn btn-primary br-tr-3 br-br-3">
-							Search
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	{% comment %} <div class='hide-details2'> {% endcomment %}
 		<div class="card">
 			<div class="card-header">
 				<h3 class="card-title">Categories </h3>
@@ -129,85 +118,63 @@
 			</div>
 			<div class="card-body">
 				<h6>
-					<label for="price">Salary Range:</label>
+					<label for="price">Стоимость курса:</label>
 					<input type="text" id="price">
 				</h6>
 				<div id="mySlider"></div>
 			</div>
 			<div class="card-header border-top">
-				<h3 class="card-title">Job Type</h3>
+				<h3 class="card-title">Рейтинг</h3>
 			</div>
 			<div class="card-body">
 				<div class="filter-product-checkboxs">
 					<label class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" name="checkbox1" value="option1">
 						<span class="custom-control-label">
-							Part time
+							4+
 						</span>
 					</label>
 					<label class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
 						<span class="custom-control-label">
-							Full time
+							3+
 						</span>
 					</label>
 					<label class="custom-control custom-checkbox mb-2">
 						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
 						<span class="custom-control-label">
-							Work From Home
+							Ниже 3
 						</span>
 					</label>
-					<label class="custom-control custom-checkbox mb-0">
-						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
-						<span class="custom-control-label">
-							Internship
-						</span>
-					</label>
+					
 				</div>
 			</div>
 			<div class="card-header border-top">
-				<h3 class="card-title">Posted By</h3>
+				<h3 class="card-title">Продолжительность</h3>
 			</div>
-			<div class="card-body">
+			{% comment %} <div class="card-body"> {% endcomment %}
+				<form action="{% url 'listings' %}"   class="card-body"method='GET' >
 				<div class="filter-product-checkboxs">
+				{% for key, value in course_duration.items %}
 					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="checkbox1" value="option1">
+						<input type="checkbox" class="custom-control-input" name="course_duration" value="{{key}}">
 						<span class="custom-control-label">
-							Management
+							{{value}}
 						</span>
 					</label>
-					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
-						<span class="custom-control-label">
-							Individual
-						</span>
-					</label>
-					<label class="custom-control custom-checkbox mb-0">
-						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
-						<span class="custom-control-label">
-							HR
-						</span>
-					</label>
+					{% endfor %}
+					
 				</div>
-			</div>
+				
+			{% comment %} </div> {% endcomment %}
 			<div class="card-footer">
-				<a href="#" class="btn btn-warning btn-block">Apply Filter</a>
+				<button type="submit" class="btn btn-info btn-block">Применить</button>
+				<a type='submit' href="{% url 'listings' %}" class="btn btn-info btn-block">Apply Filter</a>
 			</div>
-		</div>
-		<div class="card mb-0">
-			<div class="card-header">
-				<h3 class="card-title">Shares</h3>
+			</form>
 			</div>
-			<div class="card-body product-filter-desc">
-				<div class="product-filter-icons text-center">
-					<a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
-					<a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
-					<a href="#" class="google-bg"><i class="fa fa-google"></i></a>
-					<a href="#" class="dribbble-bg"><i class="fa fa-dribbble"></i></a>
-					<a href="#" class="pinterest-bg"><i class="fa fa-pinterest"></i></a>
-				</div>
-			</div>
-		</div>
+	{% comment %} </div> {% endcomment %}
+	
 	</div>
 	<!--/Left Side Content-->
 <div class="col-xl-9 col-lg-8 col-md-12">
@@ -220,12 +187,12 @@
 											<div class="p-5 bg-white item2-gl-nav d-flex">
 												<h6 class="mb-0 mt-3">Showing <b>1 to 10</b> of 30 Entries</h6>
 												<ul class="nav item2-gl-menu mt-1 ml-auto">
-													<li class=""><a href="#tab-11" class="" data-toggle="tab" title="List style"><i class="fa fa-list"></i></a></li>
-													<li><a href="#tab-12" data-toggle="tab" class="active show" title="Grid"><i class="fa fa-th"></i></a></li>
+													<li class=""><a href="#tab-11" class="active show" data-toggle="tab" title="Grid"><i class="fa fa-th"></i></a></li>
+													<li><a href="#tab-12" data-toggle="tab" class="" title="List style"><i class="fa fa-list"></i></a></li>
 												</ul>
 												<div class="d-flex">
 													<label class="mr-2 mt-2 mb-sm-1">Sort By:</label>
-													<select name="item" class="form-control select2-no-search w-70">
+													<select class="form-control select2-no-search w-70">
 														<option value="1">Relavant</option>
 														<option value="2">Newest First</option>
 														<option value="3">Highest Paid</option>
@@ -238,15 +205,20 @@
 										</div>
 									</div>
 									<div class="tab-content">
-										<div class="tab-pane" id="tab-11">
+										<div class="tab-pane  active" id="tab-11">
+										<div class="row">
+											<div class="col-sm-12 mb-3">
+											<input type="text" id="myFilter" class="form-control" onkeyup="filterObjects()" placeholder="Search duration">
+											</div>
+										</div>
+										
 											{% if listings %}
-												{% for listing in listings %}
-											<div class="card overflow-hidden br-0 overflow-hidden">
+												{% for listing, rating in zipped_tabs %}
+											<div class="card overflow-hidden br-0 overflow-hidden filt" id='listings'>
 												<div class="d-md-flex">
 													<div class="p-0 m-0 item-card9-img">
 														<div class="item-card9-icons">
-																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class="fa fa fa-heart-o"></i></a>
-																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class= "pe-7s-star">3.8 </i> </a>
+																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class= "pe-7s-star">{{rating}} </i> </a>
 														</div>
 														<div class="item-card9-imgs">
 														<div class="arrow-ribbon bg-purple">{{listing.vendor}}</div>
@@ -260,19 +232,13 @@
 													<div class="card overflow-hidden  border-0 box-shadow-0 border-left br-0 mb-0">
 														<div class="card-body pt-0 pt-md-5">
 															<div class="item-card9">
-																<a href="{% url 'listing' listing.slug %}" class="text-dark"><h4 class="font-weight-semibold mt-1">{{listing.course_name}}</h4></a>
+																<a href="{% url 'listing' listing.slug %}" class="text-dark"><h4 class="font-weight-semibold mt-1 filt">{{listing.course_name}}</h4></a>
 																<div class="mt-2 mb-2">
-																	<div class="item-card2-rating">
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning mr-1"></i>(145 reviews)</a>
-																			</div>
+																	
 																	<a href="#" class="mr-4"><span><i class="fa fa-building-o text-muted mr-1"></i> {{listing.vendor}}</span></a>
 																	<a href="#" class="mr-4"><span><i class="fa fa-map-marker text-muted mr-1"></i> {{listing.direction_name}}</span></a>
 																	<a href="#" class="mr-4"><span><i class="fa fa fa-usd text-muted mr-1"></i> {{listing.price_full | intcomma}}</span></a>
-																	<a href="#" class="mr-4"><span><i class="fa fa-clock-o text-muted mr-1"></i> {{listing.program_length}} мес	</span></a>
+																	<a href="#" class="mr-4 ak_h"><span><i class="fa fa-clock-o text-muted mr-1"></i> {{listing.program_length}} мес	</span></a>
 																	<a href="#" class="mr-4"><span><i class="fa fa-briefcase text-muted mr-1"></i> {{listing.academic_hours}} ак.ч.</span></a>
 																	
 																</div>
@@ -295,7 +261,7 @@
 																</div>
 																<div class="ml-auto">
 																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="fa fa-user text-muted mr-1"></i>{{listing.direction_name}}</a>
-																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating{{listing.rating}}</a>
+																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating {{rating}}</a>
 																	<a href="{% url 'listing' listing.slug %}" class="btn btn-primary mt-3 mt-sm-0">Apply</a>
 																</div>
 															</div>
@@ -310,12 +276,11 @@
 												</div>
 											{% endif %}
 
-
 										</div>
 										
 										<div class="tab-pane active" id="tab-12">
 										<div class="input-group">
-									<input type="text" class="form-control br-tl-7 br-bl-7" placeholder="">
+									<input type="text" class="form-control br-tl-7 br-bl-7" placeholder="Поиск по курсам">
 									<div class="input-group-append ">
 										<button type="button" class="btn btn-white br-tr-7 br-br-7">
 											<i class="fa fa-search" aria-hidden="true"></i>
@@ -325,104 +290,49 @@
 								<div class="card mt-5 store">
 									<div class="table-responsive">
 										<table class="table card-table table-vcenter text-nowrap">
-										{% if listings %}
-											{% for listing in listings %}
+										
+										<tr>
+												<td> <strong>Название курса</strong></td>
+												<td> <strong>Рейтинг</strong></td>
+												<td> <strong>Ак.ч.</strong></td>
+												<td> <strong>Длительность</strong></td>
+												
+												<td class="text-right">
+													<strong>Стоимость</strong>
+												</td>
+											</tr>
+										
+										{% if zipped %}
+											{% for listing, rating in zipped %}
 											<tr>
-												<td>{{listing.course_name}}		{{rating}}</td>
+												<td><a href='{% url 'listing' listing.slug %}'> {{listing.course_name}} </a>	<span class="label label-warning arrowed-in-right arrowed">{{listing.vendor}}</span>	</td>
+												
 												<td>
 													<div class="rating-stars block">
-														<div class="rating-stars-container">
-														<a><i class="fa fa-star{% if comment.overall_rate >= 1 %} text-yellow{% endif %}"></i></a>
+														{% comment %} <div class="rating-stars-container"> {% endcomment %}
+														<div class="item-card2-rating">
+														<a><i class="fa fa-star{% if rating >= 1 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if rating >= 2 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if rating >= 3 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if rating >= 4 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if rating >= 5 %} text-yellow{% endif %}"></i></a>
 
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
+													
 														</div>
 													</div>
 												</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">987 views</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">50% off</td>
+												<td class="text-center text-muted d-none d-md-table-cell text-nowrap">{{listing.academic_hours}} ч.</td>
+												<td class="text-center text-muted d-none d-md-table-cell text-nowrap">{{listing.program_length}} мес.</td>
 												<td class="text-right">
-													<strong>{{listing.price_full | intcomma}}</strong>
+													<strong>{{listing.price_full | intcomma}} Р.</strong>
 												</td>
 											</tr>
 											{% endfor %}
 										{% endif %}
-											<tr>
-												<td> Occational Special Edition</td>
-												<td>
-													<div class="rating-stars block">
-														<div class="rating-stars-container">
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">675 views</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap ">60% off</td>
-												<td class="text-right">
-													<strong>$2,679</strong>
-												</td>
-											</tr>
-											<tr>
-												<td>Sares
-													<span class="label label-warning arrowed-in-right arrowed">Limited</span>
-												</td>
-												<td>
-													<div class="rating-stars block">
-														<div class="rating-stars-container">
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-															<div class="rating-star sm">
-																<i class="fa fa-star"></i>
-															</div>
-														</div>
-													</div>
-												</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">765 views</td>
-												<td class="text-right text-muted d-none d-md-table-cell text-nowrap">25% off</td>
-												<td class="text-right">
-													<strong>$999</strong>
-												</td>
-											</tr>
 											
 										</table>
 									</div>
+{% comment %} 									
 											<div class="row">
 												{% if listings %}
 													{% for listing in listings %}
@@ -467,7 +377,7 @@
 												<div class="col-md-12">
 													<p> No content </p>
 												</div>
-												{% endif %}
+												{% endif %} {% endcomment %}
 
 											</div>
 										</div>
@@ -490,206 +400,13 @@
 						</div>
 						<!--/Job lists-->
 						
-										<div class="col-md-12">
-						<div class="card">
-							<div class="card-body items-gallery">
-								<div class="items-blog-tab text-center">
-									<div class="items-blog-tab-heading row">
-										<div class="col-12">
-											<ul class="nav items-blog-tab-menu">
-												<li class=""><a href="#tab-1" class="active show" data-toggle="tab">All</a></li>
-												<li><a href="#tab-2" data-toggle="tab" class="">Full Time Jobs</a></li>
-												<li><a href="#tab-3" data-toggle="tab" class="">Part Time Jobs</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="tab-content pt-0">
-										<div class="tab-pane active" id="tab-1">
-											<div class="row">
-																						<div class="tab-pane" id="tab-12">
-											<div class="row">
-												{% if listings %}
-													{% for listing in listings %}
-													<div class="col-lg-6 col-md-12 col-xl-4">
-													<div class="card mb-0 shadow-none">
-														<div class="item-card9-img">
-															<div class="arrow-ribbon bg-purple">{{listing.vendor}}</div>
-																{% if listing.main_image %}
-
-															  <img src="{{ listing.main_image.url}}" alt="img" class="cover-image">
-
-															  	{% endif %}
-															<div class="item-card9-icons">
-																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class="fa fa fa-heart-o"></i></a>
-																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class="fa fa fa-share-alt"></i></a>
-															</div>
-														</div>
-														<div class="card-body">
-															<div class="item-card2">
-																<div class="item-card2-desc">
-																	<h4 class="font-weight-semibold">{{listing.course_name}} </h4>
-																	<p>Ut enim ad minima veniam, quis nostrum exercieds ullam corporis suscipit laboriosam</p>
-																	<a href="#" class="btn btn-primary">Online</a>
-																</div>
-															</div>
-														</div>
-														<div class="card-footer">
-															<div class="item-card2-footer d-sm-flex">
-																<div class="item-card2-rating">
-																	<a href="#"><i class="fa fa-star text-warning"></i></a>
-																	<a href="#"><i class="fa fa-star text-warning"></i></a>
-																	<a href="#"><i class="fa fa-star text-warning"></i></a>
-																	<a href="#"><i class="fa fa-star text-warning"></i></a>
-																	<a href="#"><i class="fa fa-star-half-o text-warning mr-1"></i>(46 reviews)</a>
-																</div>
-																<div class="ml-auto">
-																	<a href="#" class="location"><i class="fa fa-map-marker text-muted mr-1"></i> San Francisco</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-													{% endfor %}
-												{% else %}
-												<div class="col-md-12">
-													<p> No content </p>
-												</div>
-												{% endif %}
-
-											</div>
-										</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-3 col-lg-6 col-md-12">
-													<div class="card mb-xl-0 shadow-none">
-														<div class="item-card8-img  br-tr-7 br-tl-7">
-															<img src="../assets/images/products/e1.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">HR/ Admin </h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-3 col-lg-6 col-md-12">
-													<div class="card mb-lg-0 shadow-none">
-														<div class="item-card8-img  br-tr-7 br-tl-7">
-															<img src="../assets/images/products/j3.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">Sales Executives</h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-3 col-lg-6 col-md-12">
-													<div class="card mb-0 shadow-none">
-														<div class="item-card8-img  br-tr-7 br-tl-7">
-															<img src="../assets/images/products/v3.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">Receptionist</h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane" id="tab-2">
-											<div class="row">
-												<div class="col-xl-4 col-lg-12 col-md-12">
-													<div class="card mb-xl-0 shadow-none">
-														<div class="item-card8-img  br-tr-7 br-tl-7">
-															<img src="../assets/images/products/h6.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">HR/ Admin </h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-4 col-lg-12 col-md-12">
-													<div class="card mb-xl-0 shadow-none">
-														<div class="item-card8-img">
-															<img src="../assets/images/products/h4.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">IT Software - Developer</h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-4 col-lg-12 col-md-12">
-													<div class="card mb-0 shadow-none">
-														<div class="item-card8-img">
-															<img src="../assets/images/products/b2.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">Delivery/ Collections </h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane" id="tab-3">
-											<div class="row">
-												<div class="col-xl-4 col-lg-12 col-md-12">
-													<div class="card mb-xl-0 shadow-none">
-														<div class="item-card8-img  br-tr-7 br-tl-7">
-															<img src="../assets/images/products/co1.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold"> Data Entry / Back Office</h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-xl-4 col-lg-12 col-md-12">
-													<div class="card mb-0 shadow-none">
-														<div class="item-card8-img">
-															<img src="../assets/images/products/h5.png" alt="img" class="cover-image">
-														</div>
-														<div class="card-body">
-															<div class="item-card8-desc">
-																<p class="text-muted tx-12 mb-2">16 November 2019.</p>
-																<h4 class="font-weight-semibold">Receptionist/ Front Office </h4>
-																<p class="mb-0">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-					
-					</div>
 				</div>
+				
 			</div>
+			
 		</section>
 		<!--/Job Listings-->
+
+
+
 {% endblock content %}

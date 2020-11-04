@@ -174,6 +174,8 @@ MEDIA_URL = '/media/'
 # Star rating
 STAR_RATINGS_STAR_WIDTH = 13
 
+# STAR_RATINGS_RATING_MODEL = 'pages.MyRating'
+# STAR_RATINGS_OBJECT_ID_PATTERN = '[a-z0-9]{32}'
 
 
 # Allauth

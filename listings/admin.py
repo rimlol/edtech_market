@@ -9,8 +9,21 @@ class ListingAdmin(admin.ModelAdmin):
     list_editable = ('course_published',)
     search_fields = ('course_name', 'vendor', 'direction_name', 'description_full', 'format', 'specials')
     list_per_page = 25
+
+
+class VendorAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'vendor')
+    
+
+class CommentrAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'listing', 'overall_rate', 'status')
+    list_display_links = ('id', 'user', 'listing')
+    list_editable = ('status',)
+    list_filter = ('status', )
+
+
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Category)
-admin.site.register(Vendor)
-admin.site.register(Comment)
+admin.site.register(Vendor, VendorAdmin)
+admin.site.register(Comment,CommentrAdmin)
 

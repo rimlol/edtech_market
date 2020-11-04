@@ -37,7 +37,7 @@
 									<img src="{% static '/images/users/male/25.jpg' %}" class="brround avatar-xxl" alt="user">
 									<div class="">
 										<a href="{% url 'vendor' vendor.slug %}"
-										 class="text-dark"><h4 class="mt-3 mb-1 font-weight-semibold">{{listing.vendor}}<span class="fs-14 ml-2">4.5 <i class="fa fa-star text-yellow"></i></h4></a> 
+										 class="text-dark"><h4 class="mt-3 mb-1 font-weight-semibold">{{listing.vendor}}<span class="fs-14 ml-2">{{rating | floatformat:2}} <i class="fa fa-star text-yellow"></i></h4></a> 
 										<span class="text-gray">Описание школы</span>
 										<span class="text-muted">Дата основания November 2008</span>
                                         
@@ -113,7 +113,7 @@
 									<select name="country" id="select-countries" class="form-control custom-select select2-show-search">
                                         <option value="1" selected>All Categories</option>
                                         {% for listing in listings %}
-                                    	<option value="1" selected>{{listing.direction_name}}</option>
+                                    	<option value='{{listing.direction_name}}'>{{listing.direction_name}}</option>
 
 										{% endfor %}
 									</select>
@@ -586,24 +586,28 @@
 									{% else %}
 									<h3>Leave a comment</h3>
 										{% if user.is_authenticated %}
-
+												{% if  user_have_commented %}
+												<p>Вы уже оставляли отзыв, если ваше мнение о курсе изменилсь - пожалуйста, отредактируйте отзыв</p>
+												{% else %}
+												
 									<form class="card-body" method="post">
-									{% csrf_token %}
+													{% csrf_token %}
 
-									<div class="form-group">
-										<input type="number" class="form-control" name="overall_rate" placeholder="Поставить рейтинг">
-									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" name="subject" placeholder="Заголовок">
-									</div>
-									<input type='hidden' name="user" value=''>
-									<div class="form-group">
-										<textarea class="form-control" name="comment" rows="6" placeholder="Отзыв"></textarea>
-									</div>
-									{% comment %} {{ comment_form.as_p }} {% endcomment %}
-									
-										<button type="submit" class="btn btn-primary  btn-lg">Отправить</button>
-
+													<div class="form-group">
+														<input type="number" class="form-control" name="overall_rate" placeholder="Поставить рейтинг">
+													</div>
+													<div class="form-group">
+														<input type="text" class="form-control" name="subject" placeholder="Заголовок">
+													</div>
+													<input type='hidden' name="user" value=''>
+													<div class="form-group">
+														<textarea class="form-control" name="comment" rows="6" placeholder="Отзыв"></textarea>
+													</div>
+													{% comment %} {{ comment_form.as_p }} {% endcomment %}
+													
+														<button type="submit" class="btn btn-primary  btn-lg">Отправить</button>
+									</form>
+												{% endif %}
 										{% else %}
 										<p>Войдите или зарегистрируйтесь, чтобы оставить отзыв</p>
 										<a href="{% url 'account_login' %}?next={{request.path}}" class="btn btn btn-primary"> Вход</a>
@@ -614,7 +618,6 @@
 
 										{% comment %} <a href="#" class="btn btn-info icons" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Отправить</a> {% endcomment %}
 
-									</form>
 										{% endif %}
 									{% endif %}
 								</div>

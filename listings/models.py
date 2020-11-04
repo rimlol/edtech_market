@@ -99,7 +99,7 @@ class Comment(models.Model):
     subject = models.CharField(max_length=100,blank=True)
     comment = models.TextField( blank=True)
     overall_rate = models.IntegerField(default=3)
-    ip = models.CharField(max_length=20, blank=True)
+    ip = models.GenericIPAddressField(blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     create_at = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
@@ -108,6 +108,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.subject
+
 
 # class Comment(models.Model):
 #     STATUS = (

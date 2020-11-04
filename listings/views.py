@@ -1,19 +1,39 @@
+from django.db.models import query
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Listing, Comment, Vendor
-from django.contrib.auth.models import User
+from django.utils.functional import empty
+from .models import Category, Listing, Comment, Vendor
+from django.contrib.auth.models import User, AnonymousUser
 from .forms import CommentForm
 from django.http import HttpResponse
 # from star_ratings import rating
-from star_ratings.models import Rating
-
-
+from star_ratings.models import Rating, UserRating
+from .search_choises import course_duration
+import traceback
 
 def index(request):
     listings = Listing.objects.all() #.order_by('-rating').filter(course_published=True)
-    # rating = Rating.objects.filter(content_type='3').get(object_id='1')
+    ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
+    
+        # print(ratings.get(object_id=listing.pk).average)
+    rates = [ratings.get(object_id=listing.pk).average for listing in listings]
+    # print(rates[0])
+    zipped = zip(listings, rates)
+    zipped_tabs = zip(listings, rates)
+
+    # Фильтры (не работают)
+    if 'course_duration' in request.GET:
+        course_dur = request.GET['course_duration']
+        print(course_dur)
+    # queryset_list = Listing.objects.order_by('-price_full').filter
+
+
     context = {
         'listings': listings,
-        # 'rating': rating,
+        'ratings': ratings,
+        'zipped':zipped,
+        'zipped_tabs':zipped_tabs,
+        'course_duration': course_duration,
     }
 
     return render(request, 'listings/listings.html', context)
@@ -22,17 +42,29 @@ def index(request):
 def listing(request,slug):
     listing = get_object_or_404(Listing, slug=slug)
     listings = Listing.objects.filter(direction_name=listing.direction_name).filter(course_published=True) #нужно ли оно хз
-    comments = Comment.objects.filter(listing = listing).filter(status= True)
+    comments_all = Comment.objects.filter(listing = listing)
+    comments = comments_all.filter(status= True)
     vendor = Vendor.objects.get(vendor=listing.vendor)
-    
+    rating = Rating.objects.all().get(object_id=vendor.pk).average
+
+    user_have_commented = True
+    if request.user.is_authenticated:
+        comments_of_user = comments_all.filter(user=request.user, listing=listing)
+
+        if comments_of_user.exists():
+            user_have_commented = True
+        else:
+            user_have_commented = False
+
+
     new_comment = None
-    # print (ven.slug)
     context = {
             'listing':listing,
             'listings': listings,
             'comments': comments,
             'vendor':vendor,
-            # 'vendor_slug': vendor_slug,
+            'rating':rating,
+            'user_have_commented': user_have_commented
         }
     
     if request.method == 'POST':
@@ -44,8 +76,17 @@ def listing(request,slug):
             new_comment.user = request.user
             new_comment.listing = listing
             new_comment.save()
-        
-        return render(request, 'listings/listing.html', context)
+            rate_object = Rating.objects.get(object_id = listing.pk)
+            rate_exists = UserRating.objects.get(user=request.user, rating=rate_object)
+            if rate_exists:
+                rate_exists.score = new_comment.overall_rate
+                rate_exists.save()
+            else:
+                user_rating = UserRating(user = request.user, score=new_comment.overall_rate, rating=rate_object)
+                user_rating.save()
+
+
+        return HttpResponseRedirect(request.path_info)
 
     else:
         comment_form = CommentForm()
@@ -61,10 +102,22 @@ def search(request):
 def vendors(request):
     return render(request, 'listings/vendors.html')
 
-def vendor(request,slug):
+def vendor(request,slug): # допилить
     vendor = get_object_or_404(Vendor, slug=slug)
+    vendor_rate = Rating.objects.get(object_id = vendor.pk).average
+    vendor_courses = Listing.objects.filter(course_published=True).filter(vendor = vendor) #нужно ли оно хз
+    directions = Category.objects.all()
+    
+    all_vendor_directions_count = {}
+    for direction in directions:
+        count_vendor_courses = vendor_courses.filter(direction_name= directions.get(category_name=direction)).count()
+        all_vendor_directions_count[direction.category_name] = count_vendor_courses
+    
     context = {
         'vendor':vendor,
+        'vendor_rate':vendor_rate,
+        'vendor_courses': vendor_courses,
+        'all_vendor_directions_count': all_vendor_directions_count,
     }
 
     return render(request, 'listings/vendor.html', context)

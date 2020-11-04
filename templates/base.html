@@ -160,6 +160,8 @@
 
 		<!-- Scripts Js-->
 		<script src="{% static '/js/scripts2.js' %}"></script>
+		{% comment %} <!-- Scripts Js-->
+		<script src="{% static '/js/scripts.js' %}"></script> {% endcomment %}
 
 		<!-- Custom Js-->
 		<script src="{% static '/js/custom.js'%}"></script>
@@ -169,9 +171,9 @@
 		<script src="{%static '/plugins/maps-google/jquery.googlemap.js'%}"></script>
 		<script src="{%static '/plugins/maps-google/map.js' %}"></script>
 
-		<!--Select2 js -->
+		{% comment %} <!--Select2 js -->
 		<script src="{%static '/plugins/select2/select2.full.min.js' %}"></script>
-		<script src="{%static '/js/select2.js' %}"></script>
+		<script src="{%static '/js/select2.js' %}"></script> {% endcomment %}
 
 
 		<!-- Count Down-->
@@ -195,6 +197,25 @@
 		<script src="{% static '/plugins/notify/js/rainbow.js' %}"></script>
 		<script src="{% static '/plugins/notify/js/sample.js' %}"></script>
 		<script src="{% static '/plugins/notify/js/jquery.growl.js' %}"></script>
+
+{% comment %} работает - надо заменить на наши карточки и должно полететь {% endcomment %}
+		<script>
+		function filterObjects() {
+			var input, filter, cards, cardContainer, h5, title, i;
+			input = document.getElementById("myFilter");
+			filter = input.value.toUpperCase();
+			cardContainer = document.getElementById("myItems");
+			cards = cardContainer.getElementsByClassName("card");
+			for (i = 0; i < cards.length; i++) {
+				title = cards[i].querySelector(".card-body h5.card-title a");
+				if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+					cards[i].style.display = "";
+				} else {
+					cards[i].style.display = "none";
+				}
+			}
+			}
+		</script>
 
     </body>
 
