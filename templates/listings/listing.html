@@ -14,7 +14,7 @@
 					<h4 class="page-title">Jobs Right </h4>
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item"><a href="#">{{listing.direction_name}}</a></li>
+						<li class="breadcrumb-item"><a href="#">{{listing.direction_name.russian_alias}}</a></li>
 						<li class="breadcrumb-item active" aria-current="page">{{listing.course_name}} ({{listing.vendor}})</li>
 					</ol>
 				</div>
@@ -113,7 +113,7 @@
 									<select name="country" id="select-countries" class="form-control custom-select select2-show-search">
                                         <option value="1" selected>All Categories</option>
                                         {% for listing in listings %}
-                                    	<option value='{{listing.direction_name}}'>{{listing.direction_name}}</option>
+                                    	<option value='{{listing.direction_name}}'>{{listing.direction_name.russian_alias}}</option>
 
 										{% endfor %}
 									</select>
@@ -136,9 +136,9 @@
                                     {% if lis.slug != listing.slug%}
 									<li class="item">
 										<div class="item-det card-body">
-											<a href="#" class="text-dark"><h4 class="mb-2 fs-16 font-weight-semibold">{{lis.course_name}}</h4></a>
+											<a href="{% url 'listing' lis.slug%}" class="text-dark"><h4 class="mb-2 fs-16 font-weight-semibold">{{lis.course_name}}</h4></a>
 											<small class="text-muted"><i class="si si-briefcase text-muted"></i> {{lis.vendor}} 
-											<i class="si si-location-pin text-muted ml-3"></i> {{lis.direction_name}} 
+											<i class="si si-location-pin text-muted ml-3"></i> {{lis.direction_name.russian_alias}} 
 											<i class="si si-location-pin text-muted ml-3"></i> {{lis.price_full | intcomma}} Р</small>
 											
 											<div class="icons mt-3 pb-0 ">
@@ -181,16 +181,20 @@
 													
 													<div class="">
 														<ul class="mb-0 d-flex">
-															<li class="mr-5"><a href="#" class="icons"><i class="si si-briefcase text-muted mr-1"></i> {{listing.direction_name}}</a></li>
+															<li class="mr-5"><a href="#" class="icons"><i class="si si-briefcase text-muted mr-1"></i> {{listing.direction_name.russian_alias}}</a></li>
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-location-pin text-muted mr-1"></i> {{listing.vendor}}</a></li>
-															<li class="mr-5"><a href="#" class="icons"><i class="si si-calendar text-muted mr-1"></i> {{listing.start_date | timeuntil}}</a></li>
+															<li class="mr-5"><a href="#" class="icons"><i class="si si-calendar text-muted mr-1"></i> {{listing.start_date }}</a></li>
                                                             <li class="mr-5"><a href="#" class="icons"><i class="fa fa fa-usd text-muted mr-1"></i> {{listing.price_full | intcomma}}</a></li>
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-eye text-muted mr-1"></i> 765</a></li>
+															
 														</ul>
+														{% if comments %}
+															<div class="ml-auto">
+															<a href="#" class="icons"><i class="fa fa-comment-o text-muted mr-2"></i>Отзывов: {{comments_total}} </a>
+															</div>
+															{% endif %}
 														<div class="rating-stars d-inline-flex mb-4 mr-3 mt-2">
-                                                            
-                                                            
-															                                                           
+                                                      
 														</div>	
 															
 													</div>
@@ -222,7 +226,7 @@
 											<table class="table row table-borderless w-100 m-0 text-nowrap ">
 												<tbody class="col-lg-12 col-xl-6 p-0">
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Направление</span></td> <td><span>:</span></td> <td><span> {{listing.direction_name}}</span></td>
+														<td class="w-150 px-0"><span class="font-weight-semibold">Направление</span></td> <td><span>:</span></td> <td><span> {{listing.direction_name.russian_alias}}</span></td>
 													</tr>
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold"> Школа </span></td> <td><span>:</span></td> <td><span> {{listing.vendor}}</span></td>
@@ -561,27 +565,11 @@
 							<div class="card-body">
 								<div>
 			
-								{% comment %} <form id="Comment" class="card-body" tabindex="500"   method='POST'>
-                                    {% csrf_token %}
-									<div class="form-group">
-										<input type="text" class="form-control" name="overall_rate" placeholder="Поставить рейтинг">
-									</div>
-									<div class="form-group">
-										<input type="email" class="form-control" name="subject" placeholder="Заголовок">
-									</div>
-									<div class="form-group">
-										<textarea class="form-control" name="comment" rows="6" placeholder="Отзыв"></textarea>
-									</div>
-									
-									<div class="submit">
-										<input type="submit" value="Оставить отзыв" class="btn btn-primary">
-									</div>
-								</form>
-								 {% endcomment %}
+								
 								 <div class="card-body">
 									{% if new_comment %}
 									<div class="alert alert-success" role="alert">
-									Your comment is awaiting moderation
+										Your comment is awaiting moderation
 									</div>
 									{% else %}
 									<h3>Leave a comment</h3>
@@ -604,7 +592,6 @@
 														<textarea class="form-control" name="comment" rows="6" placeholder="Отзыв"></textarea>
 													</div>
 													{% comment %} {{ comment_form.as_p }} {% endcomment %}
-													
 														<button type="submit" class="btn btn-primary  btn-lg">Отправить</button>
 									</form>
 												{% endif %}

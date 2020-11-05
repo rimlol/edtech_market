@@ -37,6 +37,7 @@ class Vendor(models.Model):
     vendor = models.CharField(max_length=200)
     slug = models.SlugField(max_length=70, blank=True)
     is_active	= models.BooleanField(default=True)
+    description = models.TextField(blank=True)
     def __str__(self):
         return self.vendor
 
@@ -95,6 +96,27 @@ class Comment(models.Model):
         ('False', 'False'),
     )
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=DO_NOTHING)
+    subject = models.CharField(max_length=100,blank=True)
+    comment = models.TextField( blank=True)
+    overall_rate = models.IntegerField(default=3)
+    ip = models.GenericIPAddressField(blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
+    create_at = models.DateTimeField(auto_now_add=True)
+    update = models.DateTimeField(auto_now=True)
+    likes = models.IntegerField(blank=True,default=0)
+    dislikes = models.IntegerField(blank=True,default=0)
+
+    def __str__(self):
+        return self.subject
+
+class VendorComment(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('True', 'True'),
+        ('False', 'False'),
+    )
+    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=DO_NOTHING)
     subject = models.CharField(max_length=100,blank=True)
     comment = models.TextField( blank=True)

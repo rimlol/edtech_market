@@ -251,17 +251,17 @@
 																	<div>
 																		<a href="profile.html" class="text-muted fs-12 mb-1">Ближайший старт </a><span class="ml-1 fs-13"> {{listing.start_date}}</span>
 																			<div class="item-card2-rating">
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning"></i></a>
-																				<a href="#"><i class="fa fa-star text-warning mr-1"></i>(145 reviews)</a>
+																				<a><i class="fa fa-star {% if rating >= 1 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if rating >= 2 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if rating >= 3 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if rating >= 4 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if rating >= 5 %} text-yellow{% endif %} mr-1"></i>(145 reviews)</a>
 																			</div>
 																	</div>
 																</div>
 																<div class="ml-auto">
 																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="fa fa-user text-muted mr-1"></i>{{listing.direction_name}}</a>
-																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating {{rating}}</a>
+																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating {{rating |floatformat:1}}</a>
 																	<a href="{% url 'listing' listing.slug %}" class="btn btn-primary mt-3 mt-sm-0">Apply</a>
 																</div>
 															</div>

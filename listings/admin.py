@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Comment, Listing, Category, Vendor
+from .models import Comment, Listing, Category, Vendor, VendorComment
 # Register your models here.
 
 class ListingAdmin(admin.ModelAdmin):
@@ -15,9 +15,16 @@ class VendorAdmin(admin.ModelAdmin):
     list_display  = ('id', 'vendor')
     
 
-class CommentrAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'listing', 'overall_rate', 'status')
     list_display_links = ('id', 'user', 'listing')
+    list_editable = ('status',)
+    list_filter = ('status', )
+
+
+class VendorCommentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'vendor', 'overall_rate', 'status')
+    list_display_links = ('id', 'user', 'vendor')
     list_editable = ('status',)
     list_filter = ('status', )
 
@@ -25,5 +32,7 @@ class CommentrAdmin(admin.ModelAdmin):
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Category)
 admin.site.register(Vendor, VendorAdmin)
-admin.site.register(Comment,CommentrAdmin)
+admin.site.register(Comment,CommentAdmin)
+admin.site.register(VendorComment,VendorCommentAdmin)
+
 
