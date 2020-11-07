@@ -10,30 +10,53 @@ from django.http import HttpResponse
 from star_ratings.models import Rating, UserRating
 from .search_choises import course_duration
 import traceback
+from .filters import ListingCategoryFilter, ListingFilter
+
+# from .dataimport import skillbox_programming_data
 
 def index(request):
     listings = Listing.objects.all() #.order_by('-rating').filter(course_published=True)
     ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
-        # print(ratings.get(object_id=listing.pk).average)
     rates = [ratings.get(object_id=listing.pk).average for listing in listings]
-    # print(rates[0])
+
+    # print(Category.objects.get(category_name='Programming').pk)
+    myFilter = ListingFilter(request.GET, queryset=listings)
+    listings = myFilter.qs
+
     zipped = zip(listings, rates)
     zipped_tabs = zip(listings, rates)
-
-    # Фильтры (не работают)
-    if 'course_duration' in request.GET:
-        course_dur = request.GET['course_duration']
-        print(course_dur)
-    # queryset_list = Listing.objects.order_by('-price_full').filter
-
 
     context = {
         'listings': listings,
         'ratings': ratings,
         'zipped':zipped,
         'zipped_tabs':zipped_tabs,
-        'course_duration': course_duration,
+        'myFilter' : myFilter
     }
+
+    """
+    очень хуевый способ импорта, но работает
+    """
+    # def data_import(data):
+    #     for elem in data:
+    #         vendor = Vendor.objects.get(id= elem[0])
+    #         cat = Category.objects.get(id= elem[2])
+
+    #         new_listing = Listing(
+    #             vendor = vendor,
+    #             course_name = elem[1],
+    #             direction_name=	 cat,
+    #             program_length = elem[4],
+    #             link_to_product	= elem[3]
+    #         )
+    #         new_listing.save()
+    #         print("Success adding", new_listing)
+    #  тут нужно еще создавать рейтинг при добавлении нового листинга Rating(object_id = listing.pk).save()
+
+    # data_import(skillbox_programming_data)
+    
+
+
 
     return render(request, 'listings/listings.html', context)
 
@@ -119,6 +142,31 @@ def listing(request,slug):
         return render(request, 'listings/listing.html', context)
 
 
+def category(request,slug):
+    category = Category.objects.get(slug=slug)
+    listings = Listing.objects.filter(direction_name=category.pk)
+    ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
+    rates = [ratings.get(object_id=listing.pk).average for listing in listings]
+    
+
+    myFilter = ListingCategoryFilter(request.GET, queryset=listings)
+    listings = myFilter.qs
+    zipped = zip(listings, rates)
+    zipped_tabs = zip(listings, rates)
+    context = {
+        'listings': listings,
+        'ratings': ratings,
+        'zipped':zipped,
+        'zipped_tabs':zipped_tabs,
+        'myFilter' : myFilter
+    }
+
+    
+    return render(request, 'listings/category.html', context)
+
+
+
+
 def search(request):
     return render(request, 'listings/search.html')
 
@@ -132,10 +180,12 @@ def categories(request):
     categories = Category.objects.all().filter(is_active = True)
     all_categories_courses_count = {}
     for category in categories:
+        slug = category.slug
         category_courses_count = Listing.objects.filter(course_published=True).filter(direction_name = category).count()
         # category_slug = category.slug # тут нужно подумать, не очется заводить отделььную категорию по аналитике - хочется редиректить на страницу отфильтрованную
         all_categories_courses_count[category.russian_alias] = {
             'category_courses_count': category_courses_count,
+            'slug':slug
             # 'vendor_slug': vendor_slug,
 
         }

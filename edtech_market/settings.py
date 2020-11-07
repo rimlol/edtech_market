@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'star_ratings',
     'crispy_forms',
+    'django_filters',
+
 
 
 ]

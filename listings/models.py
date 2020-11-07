@@ -66,7 +66,7 @@ class Listing(models.Model):
     description_short =  models.TextField(blank=True)
     program_length = models.IntegerField(blank=True, default=0)
     academic_hours	= models.IntegerField(blank=True, default=0)
-    start_date = models.DateField(blank = True)
+    start_date = models.DateField(blank = True, null=True)
     format =  models.TextField(blank=True)
     specials =  models.TextField(blank=True)
     p_code	= models.CharField(max_length=100, blank=True)
