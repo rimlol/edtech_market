@@ -1,0 +1,1 @@
+web: gunicorn  edtech_market.wsgi

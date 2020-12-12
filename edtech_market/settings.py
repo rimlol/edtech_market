@@ -89,7 +89,8 @@ WSGI_APPLICATION = 'edtech_market.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+# DATABASE_URL: postgres://duesustgpjtsjg:6e2c3463f268d93739946f04277e7e3c08c04b31b45860ddd8c42cefedc9871b@ec2-54-228-250-82.eu-west-1.compute.amazonaws.com:5432/dtug35ea3clsm
+# ?sslmode=require  - надо добавить
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
