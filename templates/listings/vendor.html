@@ -22,9 +22,9 @@
 										<ul class="list-group mb-0">
 											{% for dir,count in all_vendor_directions_count.items %}
 											<li class="list-group-item">
-												<a href="#" class="text-dark">
+												<a href="{% url 'category' count.direction_slug %}?vendor={{count.vendor_id}}" class="text-dark">
 													<i class="fa fa-laptop bg-primary text-primary"></i> {{dir}}
-													<span class="badgetext badge badge-pill badge-light mb-0 mt-1">{{count}}</span>
+													<span class="badgetext badge badge-pill badge-light mb-0 mt-1">{{count.count_vendor_courses}}</span>
 												</a>
 											</li>
 											{% endfor %}

@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'star_ratings',
     'crispy_forms',
     'django_filters',
+    'taggit', 
+    'hitcount',
+
+
 
 
 

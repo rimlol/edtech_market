@@ -2,8 +2,8 @@
 <!--Nav-->
                 <nav class="horizontalMenu clearfix d-md-flex">
                     <ul class="horizontalMenu-list">
-                        <li><a href="#">Home <span class="fa fa-caret-down m-0"></span></a>
-                            <ul class="sub-menu">
+                        <li><a href="{% url 'index' %}">Главная </a>
+                            {% comment %} <ul class="sub-menu">
                                 <li><a href="index.html">Home Deafult</a></li>
                                 <li><a href="index2.html">Home Style 02</a></li>
                                 <li><a href="index3.html">Home Style 03</a></li>
@@ -13,10 +13,9 @@
                                 <li><a href="index7.html">Home Style 07</a></li>
                                 <li><a href="intro-page.html">Home Intro Page</a></li>
                                 <li><a href="popup-login.html">Home Pop-up login</a></li>
-                            </ul>
+                            </ul> {% endcomment %}
                         </li>
-                        <li><a href="about.html">About Us </a></li>
-                        <li><a href="#" class="active">Pages <span class="fa fa-caret-down m-0"></span></a>
+                        <li><a href="{% url 'categories' %}" >Направления <span class="fa fa-caret-down m-0"></span></a>
                             <div class="horizontal-megamenu clearfix">
                                 <div class="container">
                                     <div class="megamenu-content">
@@ -96,7 +95,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#">Blog <span class="fa fa-caret-down m-0"></span></a>
+                        {% comment %} <li><a href="#">Blog <span class="fa fa-caret-down m-0"></span></a>
                             <ul class="sub-menu">
                                 <li><a href="#">Blog Grid <i class="fa fa-angle-right float-right mt-1 d-none d-lg-block"></i></a>
                                         <ul class="sub-menu">
@@ -120,36 +119,18 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </li>
-                        <li><a href="#">My Dashboard <span class="fa fa-caret-down m-0"></span></a>
+                        </li> {% endcomment %}
+                        <li><a href="{% url 'vendors' %}">Школы <span class="fa fa-caret-down m-0"></span></a>
                             <ul class="sub-menu">
+                                {% for vendor in vendors %}
                                 <li>
-                                    <a href="mydash.html">My Dashboard</a>
+                                    <a href="{% url 'vendor' vendor.slug %}">{{vendor.vendor}}</a>
                                 </li>
-                                <li>
-                                    <a href="myjobs.html">My Jobs</a>
-                                </li>
-                                <li>
-                                    <a href="myfavorite.html">Favorite Jobs</a>
-                                </li>
-                                <li>
-                                    <a href="manged.html">Manged Jobs</a>
-                                </li>
-                                <li>
-                                    <a href="payments.html">Payments</a>
-                                </li>
-                                <li>
-                                    <a href="orders.html"> Orders</a>
-                                </li>
-                                <li>
-                                    <a href="settings.html"> Settings</a>
-                                </li>
-                                <li>
-                                    <a href="tips.html">Tips</a>
-                                </li>
+                                {% endfor %}
+                                
                             </ul>
                         </li>
-                        <li><a href="contact.html"> Contact Us <span class="horizontal-arrow"></span></a></li>
+                        {% comment %} <li><a href="contact.html"> Contact Us <span class="horizontal-arrow"></span></a></li> {% endcomment %}
                         <li class="pt-0  pb-2 mt-lg-0 create-submit-btn">
                             <span><a class="btn btn-secondary ad-post mt-1" href="ad-posts.html"><i class="fa fa-briefcase"></i> Submit a Job</a></span>
                         </li>

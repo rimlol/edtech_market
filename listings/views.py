@@ -10,28 +10,86 @@ from django.http import HttpResponse
 from star_ratings.models import Rating, UserRating
 from .search_choises import course_duration
 import traceback
-from .filters import ListingCategoryFilter, ListingFilter
-
+from .filters import ListingCategoryFilter, ListingFilter, ordering_choises
+from taggit.models import Tag 
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
 # from .dataimport import skillbox_programming_data
 
-def index(request):
+def index(request, tag_slug=None):
+    vendors = Vendor.objects.all().filter(is_active = True)
+
+    # задать фильтрацию  листингов на основе запроса пользователя
     listings = Listing.objects.all() #.order_by('-rating').filter(course_published=True)
     ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
     rates = [ratings.get(object_id=listing.pk).average for listing in listings]
 
     # print(Category.objects.get(category_name='Programming').pk)
+
+
     myFilter = ListingFilter(request.GET, queryset=listings)
     listings = myFilter.qs
 
+    # тут можно дописать фильтр по рейтингу (делаем запрос с фильтрацией average > {input_rating})
+    # надо только вспомнить как передавать input rating choises
+    # и после этого надо как-то включить это в форму запроса минуя форму листингов (возможно фильтруя листинги до того как это сделает основной фильтр  )
+
+    tag = None  
+    if tag_slug:  
+        tag = get_object_or_404(Tag, slug=tag_slug)  
+        listings = listings.filter(tags__in=[tag])  
+
+    # добавляем сортировку
+    if 'sort_by' in request.GET:
+        sort_by = request.GET['sort_by']
+        if sort_by:
+            # прописать тут статусы и вписать изменение на активный если он мэтчится с кеем
+            # active_state = {
+            #     'low_price': 'false',
+            #     'high_price': 'false',
+            #     'duration': 'false',
+            #     'duration_high': 'false',
+            #     'rating': 'false',
+            # }
+            if sort_by == 'low_price':
+                listings = listings.order_by('price_full')
+            elif sort_by == 'high_price':
+                listings = listings.order_by('-price_full')
+            elif sort_by == 'duration':
+                listings = listings.order_by('program_length')
+            elif sort_by == 'duration_high':
+                listings = listings.order_by('-program_length')
+            # есть баг - меняется отображение звезд при сортировке
+            # надо связать все курсы с рейтингами / потом переписать темплейт, уйти от зипа 
+            # и  уйти от переменной rates
+            # остается проблема ручного привязывания курсов - трудно будет привязать
+            elif sort_by == 'rating':
+                listings = listings.order_by('-rating__average')
+                
+
+
     zipped = zip(listings, rates)
     zipped_tabs = zip(listings, rates)
+    len_listiings = len(listings)
+
+    # задаем метатеги
+    meta = {
+         'title': 'Отзывы об онлайн курсах',
+         'description' : 'Отзывы пользователей об онлайн-курсах Skillbox, Geekbrains, Skillfactory, Нетологии по программированию, дизайну, менеджменту, аналитике',
+         'keywords': 'Отзывы о курсах, отзывы о Skillbox, отзывы о Geekbrains, отзывы о Skillfactory, отзывы о Нетологии, отзывы о курсах по программированию, отзывы о курсах по дизайну, отзывы о курсах по маркетингу, отзывы о курсах по менеджменту',
+     }
 
     context = {
         'listings': listings,
         'ratings': ratings,
         'zipped':zipped,
         'zipped_tabs':zipped_tabs,
-        'myFilter' : myFilter
+        'myFilter' : myFilter,
+        'tag': tag,
+        'len_listiings':len_listiings,
+        'vendors': vendors,
+        'ordering_choises' : ordering_choises,
+        'meta':meta,
     }
 
     """
@@ -81,13 +139,16 @@ def VendorSubrate(overall_rate, vendor, request):
     return ("Successful Crossrate")
 
 def listing(request,slug):
+    vendors = Vendor.objects.all().filter(is_active = True)
+
     listing = get_object_or_404(Listing, slug=slug)
     listings = Listing.objects.filter(direction_name=listing.direction_name).filter(course_published=True) #нужно ли оно хз
     comments_all = Comment.objects.filter(listing = listing)
     comments = comments_all.filter(status= True)
     comments_total = comments.count()
     vendor = Vendor.objects.get(vendor=listing.vendor)
-    rating = Rating.objects.all().get(object_id=vendor.pk).average
+    rating_all = Rating.objects.all().get(object_id=vendor.pk)
+    rating = rating_all.average
 
     user_have_commented = True
     if request.user.is_authenticated:
@@ -97,8 +158,29 @@ def listing(request,slug):
             user_have_commented = True
         else:
             user_have_commented = False
-
-
+    '''
+    #  пока не работает
+    # first get the related HitCount object for your model object
+    hit_count = HitCount.objects.get_for_object(listing)
+        # next, you can attempt to count a hit and get the response
+    # you need to pass it the request object as well
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    '''
+    kwds_tags = listing.tags.all()
+    kwds_tags = [item.slug for item in kwds_tags ]
+    print(kwds_tags)
+    meta = {
+         'title': 'Отзывы о курсе ' + '«'+ listing.course_name +'‎»' + " от " + listing.vendor.vendor,
+         'description' : 'Отзывы пользователей о курсе ' +  
+                        '«'+ listing.course_name + '»' + " от " + listing.vendor.vendor + '. ' +
+                        'Продолжительность: ' + str(listing.program_length) + ' мес' +
+                        '. Отзывов: ' + str(listing.rating.count) +
+                        '. Средняя оценка:' + str(rating_all.average),
+         'keywords': 'Отзывы о курсах, отзывы о ' + listing.vendor.vendor + 
+                    ', отзывы о курсах по направлению - ' + 
+                    listing.direction_name.russian_alias +', '+
+                    ', '.join(map(str, kwds_tags)),
+     }
     new_comment = None
     context = {
             'listing':listing,
@@ -108,6 +190,11 @@ def listing(request,slug):
             'rating':rating,
             'user_have_commented': user_have_commented,
             'comments_total':comments_total,
+            'tags': listing.tags.all(),
+            'vendors':vendors,
+            'meta':meta,
+            # 'hit_count': hit_count,
+            # 'hit_count_response':hit_count_response,
         }
     
     if request.method == 'POST':
@@ -144,6 +231,8 @@ def listing(request,slug):
 
 def category(request,slug):
     category = Category.objects.get(slug=slug)
+    vendors = Vendor.objects.all().filter(is_active = True)
+    
     listings = Listing.objects.filter(direction_name=category.pk)
     ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
     rates = [ratings.get(object_id=listing.pk).average for listing in listings]
@@ -153,12 +242,15 @@ def category(request,slug):
     listings = myFilter.qs
     zipped = zip(listings, rates)
     zipped_tabs = zip(listings, rates)
+    # прописсать тут метатеги
+    meta = {}
     context = {
         'listings': listings,
         'ratings': ratings,
         'zipped':zipped,
         'zipped_tabs':zipped_tabs,
-        'myFilter' : myFilter
+        'myFilter' : myFilter,
+        'vendors': vendors
     }
 
     
@@ -177,6 +269,7 @@ def search(request):
 Для страницы одного напавления делаем страницу аналогичную поиску
 '''
 def categories(request):
+    vendors = Vendor.objects.all().filter(is_active = True)
     categories = Category.objects.all().filter(is_active = True)
     all_categories_courses_count = {}
     for category in categories:
@@ -185,8 +278,9 @@ def categories(request):
         # category_slug = category.slug # тут нужно подумать, не очется заводить отделььную категорию по аналитике - хочется редиректить на страницу отфильтрованную
         all_categories_courses_count[category.russian_alias] = {
             'category_courses_count': category_courses_count,
-            'slug':slug
+            'slug':slug,
             # 'vendor_slug': vendor_slug,
+            'vendors':vendors,
 
         }
 
@@ -224,6 +318,8 @@ def vendors(request):
     return render(request, 'listings/vendors.html', context)
 
 def vendor(request,slug): # допилить
+    vendors = Vendor.objects.all().filter(is_active = True)
+
     vendor = get_object_or_404(Vendor, slug=slug)
     vendor_rate = Rating.objects.get(object_id = vendor.pk).average
     vendor_courses = Listing.objects.filter(course_published=True).filter(vendor = vendor) #нужно ли оно хз
@@ -235,7 +331,12 @@ def vendor(request,slug): # допилить
 
     for direction in directions:
         count_vendor_courses = vendor_courses.filter(direction_name= directions.get(category_name=direction)).count()
-        all_vendor_directions_count[direction.category_name] = count_vendor_courses
+        all_vendor_directions_count[direction.category_name] = {
+            'count_vendor_courses':count_vendor_courses,
+            'vendor_id': vendor.pk,
+            'direction_slug': direction.slug,
+            
+            }
 
     user_have_commented = True
     if request.user.is_authenticated:
@@ -245,7 +346,8 @@ def vendor(request,slug): # допилить
             user_have_commented = True
         else:
             user_have_commented = False
-
+    # прописсать тут метатеги
+    meta = {}
     new_comment = None
     context = {
         'vendor':vendor,
@@ -255,6 +357,7 @@ def vendor(request,slug): # допилить
         'vendor_comments':vendor_comments,
         'comments_total':comments_total,
         'user_have_commented': user_have_commented,
+        'vendors':vendors,
     }
 
     if request.method == 'POST':

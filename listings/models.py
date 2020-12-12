@@ -5,7 +5,8 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.db.models.fields import DateTimeField
 from uuslug import uuslug
-
+from taggit.managers import TaggableManager
+from star_ratings.models import Rating, UserRating
 from django.db.models.query import ModelIterable
 # from django.utils.text import slugify
 from uuslug import slugify
@@ -74,6 +75,8 @@ class Listing(models.Model):
     is_free	= models.BooleanField(default=False)
     course_published = models.BooleanField(default=True)
     link_to_product	= models.URLField(blank=True, max_length=1000)
+    tags = TaggableManager()
+    rating = models.OneToOneField(Rating,blank=True, null=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.course_name

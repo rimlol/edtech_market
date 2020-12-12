@@ -1,14 +1,14 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
         <meta charset="UTF-8">
         <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="Description" content="Job board html template">
-        <meta name="Author" content="Spruko Technologies Private Limited">
-        <meta name="keywords" content="bootstrap job board template, bootstrap job template, hr consultancy website template, job board bootstrap template, job board html template, job listing html template, job portal html template, job portal templates html5, job posting website template, job recruitment website template, job template bootstrap, job template html, simple html and css templates, simple html css templates, directory listing html template, classified website template, responsive css template, html5 responsive template, job posting template, simple bootstrap template, bootstrap 4 templates, job application template, html5 template, premium, recruitment, template, html, job alert, directory"/>
+        <meta name="Description" content="{{meta.description}}">
+        <meta name="Author" content="EdTech.reviews">
+        <meta name="keywords" content="{{meta.keywords}}"/>
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
@@ -18,7 +18,6 @@
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     
         <!-- Title -->
-		<title>rejoin - Job board html template</title>
 {% comment %} 	
 		<!-- Notifications  Css -->
 		<link href="{% static '/plugins/notify/css/jquery.growl.css' %}" rel="stylesheet" />
@@ -48,7 +47,8 @@
 		<!-- COLOR-SKINS -->
 		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{% static '/color-skins/color-skins/color10.css' %}" />
 
-    <title> Marketplace {% block title %}
+    <title> Edtech.Review | {% block title %}
+	{{meta.title}}
     {% endblock title %}</title>
 </head>
 <body class='main-body'>
@@ -65,10 +65,10 @@
         <div class="horizontal-main clearfix">
             <div class="horizontal-mainwrapper container clearfix">
                 <div class="desktoplogo">
-                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/logo.png' %}" alt=""></a>
+                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/group_logo.svg' %}" alt="logo"></a>
                 </div>
                 <div class="desktoplogo-1">
-                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/logo.png' %}" alt=""></a>
+                    <a href="{%url 'index'%}"><img src="{% static '/images/brand/group_logo.svg' %}" alt="logo"></a>
                 </div>
                 <!--Nav-->
                 {%include 'partials/_navbar.html'%}
@@ -106,8 +106,8 @@
 
 	    <!--Footer Section-->
 
-		<!-- Notification -->
-		<a href="advanced-search.html" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a>
+		{% comment %} <!-- Notification -->
+		<a href="advanced-search.html" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a> {% endcomment %}
 
 		<!-- Back to top -->
 		<a href="#top" id="back-to-top" ><i class="fa fa-arrow-up"></i></a>
@@ -154,9 +154,9 @@
 		<!-- Custom scroll bar Js-->
 		<script src="{% static '/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'%}"></script>
 
-		<!--Showmore Js-->
+		{% comment %} <!--Showmore Js-->
 		<script src="{% static '/js/jquery.showmore.js'%}"></script>
-		<script src="{% static '/js/showmore.js' %}"></script>
+		<script src="{% static '/js/showmore.js' %}"></script> {% endcomment %}
 
 		<!-- Scripts Js-->
 		<script src="{% static '/js/scripts2.js' %}"></script>

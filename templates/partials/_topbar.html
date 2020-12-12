@@ -23,7 +23,8 @@
                                 {% endif %} 
                                 >
                                     {% if user.is_authenticated %}
-                                     <span>Добро пожаловать, {{user.username}}</span>
+                                     {% comment %} <span>Добро пожаловать, {{user.username}}</span> {% endcomment %}
+                                     <a href="" class=""><i class="fa fa-user mr-1"></i> <span>Добро пожаловать, {{user.username}}</span></a>
                                    {% else %}
                                     <a href="{% url 'account_signup' %}?next={{request.path}}" class=""><i class="fa fa-user mr-1"></i> <span>Регистрация</span></a>
 
@@ -44,7 +45,7 @@
                                 
                                 </li>
 
-                                <li class="dropdown">
+                                {% comment %} <li class="dropdown">
                                     <a href="listing.html" class="" data-toggle="dropdown"><i class="fa fa-home mr-1"></i><span>ЛК</span></a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a href="listing.html" class="dropdown-item" >
@@ -63,7 +64,7 @@
                                             <i class="dropdown-icon icon icon-power"></i> Log out
                                         </a>
                                     </div>
-                                </li>
+                                </li> {% endcomment %}
                                  
                             </ul>
                         </div>
@@ -78,7 +79,7 @@
                     <div class="horizontal-header clearfix ">
                     <div class="container">
                         <a id="horizontal-navtoggle" class="animated-arrow"><span></span></a>
-                        <span class="smllogo"><img src="{% static '/images/brand/logo.png' %}" width="120" alt="img"/></span>
+                        <span class="smllogo"><img src="{% static '/images/brand/horizontal_on_white_by_logaster.png' %}" width="120" alt="img"/></span>
                         <a href="#" class="callusbtn bg-light"><i class="fa fa-bell text-body" aria-hidden="true"></i></a>
                     </div>
                 </div>

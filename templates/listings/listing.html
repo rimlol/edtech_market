@@ -2,6 +2,8 @@
 {% load humanize %}
 {% load static %}
 {% load ratings %}
+{% load hitcount_tags %}
+
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -11,10 +13,9 @@
 		<div class="bg-white border-bottom">
 			<div class="container">
 				<div class="page-header">
-					<h4 class="page-title">Jobs Right </h4>
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item"><a href="#">{{listing.direction_name.russian_alias}}</a></li>
+						<li class="breadcrumb-item"><a href="{% url 'listings' %}">Курсы {{hit_count}}</a></li>
+						<li class="breadcrumb-item"><a href="{% url 'category' listing.direction_name.slug %}">{{listing.direction_name.russian_alias}}</a></li>
 						<li class="breadcrumb-item active" aria-current="page">{{listing.course_name}} ({{listing.vendor}})</li>
 					</ol>
 				</div>
@@ -42,11 +43,13 @@
 										<span class="text-muted">Дата основания November 2008</span>
                                         
 										<h6 class="mt-2 mb-0"><a href="{% url 'vendor' vendor.slug  %}" class="btn btn-primary btn-sm">Все курсы школы</a></h6>
+																			{% comment %} <a href="{% url 'vendor' vendor.slug  %}" class="btn btn-primary" ><i class="fa fa-star"></i> Отзывы о школе</a> {% endcomment %}
+
 									</div>
 
 								</div>
 							</div>
-                            <div class="card-body  item-user">
+                            {% comment %} <div class="card-body  item-user">
 
                                 <h4 class="mb-4 card-title">Оценки школы</h4>
                             
@@ -76,26 +79,26 @@
 									</div>
 								</div>
 							    </div>
-                            </div>
+                            </div> {% endcomment %}
 
 							
-							<div class="card-footer bg-light-50">
+							{% comment %} <div class="card-footer bg-light-50">
 								<div class="text-left">
 									
 									<a href="{% url 'vendor' vendor.slug  %}" class="btn btn-primary" ><i class="fa fa-star"></i> Отзывы о школе</a>
 								</div>
-							</div>
+							</div> {% endcomment %}
 						</div>
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">Keywords</h3>
+								<h3 class="card-title">Тэги</h3>
 							</div>
 							<div class="card-body product-filter-desc">
 								<div class="product-tags clearfix">
 									<ul class="list-unstyled mb-0">
-										<li><a href="#">Software</a></li>
-										<li><a href="#">Hardware &amp; Network</a></li>
-										<li><a href="#">Job in USA</a></li>
+										{% for tag in tags  %}
+										<li><a href="{% url 'listing_with_tag' tag.slug %}">{{tag}}</a></li>
+										{% endfor %}
 									</ul>
 								</div>
 							</div>
@@ -103,13 +106,13 @@
 						
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">Search Jobs</h3>
+								<h3 class="card-title">Поиск по курсам</h3>
 							</div>
 							<div class="card-body">
 								<div class="form-group">
-									<input type="text" class="form-control" id="search-text" placeholder="What are you looking for?">
+									<input type="text" class="form-control" id="search-text" placeholder="Поиск по курсам">
 								</div>
-								<div class="form-group">
+								{% comment %} <div class="form-group">
 									<select name="country" id="select-countries" class="form-control custom-select select2-show-search">
                                         <option value="1" selected>All Categories</option>
                                         {% for listing in listings %}
@@ -117,9 +120,9 @@
 
 										{% endfor %}
 									</select>
-								</div>
+								</div> {% endcomment %}
 								<div class="">
-									<a href="#" class="btn btn-block btn-primary">Search</a>
+									<a href="#" class="btn btn-block btn-primary">Поиск</a>
 								</div>
 							</div>
 						</div>
@@ -177,14 +180,18 @@
 												<img src="{{ listing.main_image.url}}"  class="w-20 h-20" alt="user">
 												{% endif %}
 												<div class="ml-4">
-													<a href="listing.link_to_product" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold">{{listing.course_name}}</h4></a>
+													<a href="{{listing.link_to_product}}" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold">{{listing.course_name}}</h4></a>
 													
 													<div class="">
 														<ul class="mb-0 d-flex">
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-briefcase text-muted mr-1"></i> {{listing.direction_name.russian_alias}}</a></li>
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-location-pin text-muted mr-1"></i> {{listing.vendor}}</a></li>
+															{% if listing.start_date %}
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-calendar text-muted mr-1"></i> {{listing.start_date }}</a></li>
-                                                            <li class="mr-5"><a href="#" class="icons"><i class="fa fa fa-usd text-muted mr-1"></i> {{listing.price_full | intcomma}}</a></li>
+                                                            {% endif %}
+															{% if listing.price_full %}
+															<li class="mr-5"><a href="#" class="icons"><i class="fa fa fa-usd text-muted mr-1"></i> {{listing.price_full | intcomma}}</a></li>
+                                                            {% endif %}
 															<li class="mr-5"><a href="#" class="icons"><i class="si si-eye text-muted mr-1"></i> 765</a></li>
 															
 														</ul>
@@ -199,8 +206,8 @@
 															
 													</div>
 													<div class="icons">
-														<a href="#" class="btn btn-info icons" data-toggle="modal" data-target="#apply"><i class="fa fa-check mr-1"></i> Промокод</a>
-														<a href="{{listing.link_to_product}}" class="btn btn-primary icons" data-toggle="modal" data-target="#contact"><i class="si si-phone mr-1"></i> К курсу</a>
+														<a href="{{listing.link_to_product}}" class="btn btn-primary icons" ><i class="fa fa-check mr-1"></i> К курсу</a>
+														{% comment %} <a href="{{listing.link_to_product}}" class="btn btn-primary icons" data-toggle="modal" data-target="#contact"><i class="si si-phone mr-1"></i> К курсу</a> {% endcomment %}
 													
 													</div>
 												</div>
@@ -231,26 +238,36 @@
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold"> Школа </span></td> <td><span>:</span></td> <td><span> {{listing.vendor}}</span></td>
 													</tr>
+													{% if listing.program_length %}
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold">Продолжительность </span></td> <td><span>:</span></td> <td><span> {{listing.program_length}} мес.</span></td>
 													</tr>
+													{% endif %}
+													{% if listing.format %}
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold">Формат</span></td> <td><span>:</span></td> <td><span> {{listing.format}}</span></td>
 													</tr>
+													{% endif %}
 													
 												</tbody>
 												<tbody class="col-lg-12 col-xl-6 p-0">
+													{% if listing.price_full %}
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold">Полная стоимость</span></td> <td><span>:</span></td> <td><span> {{listing.price_full | intcomma }} руб.</span></td>
 													</tr>
+													{% endif %}
+													{% if listing.price_per_month %}
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold">Стоимость в рассрочку</span></td> <td><span>:</span></td> <td><span> от {{listing.price_per_month | intcomma}} руб./мес.</span></td>
 													</tr>
+													{% endif %}
+													{% if listing.academic_hours %}
 													<tr>
 														<td class="w-150 px-0"><span class="font-weight-semibold">Академ. часов</span></td> <td><span>:</span></td> <td><span> {{listing.academic_hours}} ч.</span></td>
 													</tr>
+													{% endif %}
 													<tr>
-														<td class="w-150 px-0"><span class="font-weight-semibold">Трудоустройство</span></td> <td><span>:</span></td> <td><span> Any Graduate</span></td>
+														{% comment %} <td class="w-150 px-0"><span class="font-weight-semibold">Трудоустройство</span></td> <td><span>:</span></td> <td><span> Any Graduate</span></td> {% endcomment %}
 													</tr>
 													
 												</tbody>
@@ -259,7 +276,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-body">
+							{% comment %} <div class="card-body">
 								<div class="list-id">
 									<div class="row">
 										<div class="col">
@@ -270,14 +287,14 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> {% endcomment %}
 			
 						</div>
 						<!--Jobs Description-->
 
-						<h4 class="mb-5 mt-4">Related Posts</h4>
+						{% comment %} <h4 class="mb-5 mt-4">Related Posts</h4> {% endcomment %}
 
-						{% comment %} <!--Related Posts-->
+						 {% comment %} <!--Related Posts-->
 						<div id="myCarousel2" class="owl-carousel owl-carousel-icons3">
 							<div class="item">
 								<div class="card">
@@ -503,7 +520,7 @@
 								</div>
 							</div>
 						</div>
-						<!--/Related Posts--> {% endcomment %}
+						<!--/Related Posts-->  {% endcomment %}
 
 						<!--Comments-->
 						<div class="card">
@@ -512,6 +529,12 @@
 							</div>
 
 							<div class="card-body p-0">
+                         {% if not comments %}
+						 	 <div class="card-body">
+
+						 <p>Пока нет опубликованных отзывов о курсе.</p>
+						 	</div>
+							{% endif %}
                          {% if comments %}
 
                             {% for comment in comments %} 
@@ -540,9 +563,8 @@
                                            {{comment.subject}}
                                             {{comment.comment}}
                                         </p>
-										<a href="#" class="mr-2"><span class="badge badge-primary">Helpful</span></a>
-										<a href="" class="mr-2" data-toggle="modal" data-target="#Comment"><span class="">Comment</span></a>
-										<a href="" class="mr-2" data-toggle="modal" data-target="#report"><span class="">Report</span></a>
+										<a href="#" class="mr-2"><span class="badge badge-primary">Полезно</span></a>
+										<a href="" class="mr-2" data-toggle="modal" data-target="#report"><span class="">Пожаловаться</span></a>
                                         
                                         
 									</div>
@@ -560,9 +582,9 @@
 
 						<div class="card mb-0">
 							<div class="card-header">
-								<h3 class="card-title">Leave a reply</h3>
+								<h3 class="card-title">Оставить отзыв</h3>
 							</div>
-							<div class="card-body">
+							<div class="card-body">	
 								<div>
 			
 								
@@ -572,7 +594,7 @@
 										Your comment is awaiting moderation
 									</div>
 									{% else %}
-									<h3>Leave a comment</h3>
+									<h3>Оставить отзыв</h3>
 										{% if user.is_authenticated %}
 												{% if  user_have_commented %}
 												<p>Вы уже оставляли отзыв, если ваше мнение о курсе изменилсь - пожалуйста, отредактируйте отзыв</p>
@@ -582,7 +604,27 @@
 													{% csrf_token %}
 
 													<div class="form-group">
-														<input type="number" class="form-control" name="overall_rate" placeholder="Поставить рейтинг">
+										<div class="rating-stars block" id="rating">
+											<input type="number" class="rating-value" name="overall_rate" id="rating-stars-value" >
+											<div class="rating-stars-container">
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+												<div class="rating-star">
+													<i class="fa fa-star"></i>
+												</div>
+											</div>
+										</div>
+														{% comment %} <input type="number" class="form-control" name="overall_rate" placeholder="Поставить рейтинг"> {% endcomment %}
 													</div>
 													<div class="form-group">
 														<input type="text" class="form-control" name="subject" placeholder="Заголовок">
@@ -755,6 +797,8 @@
 			</div>
 		</div>
 
+	{% comment %} <!-- Notification -->
+		<a href="advanced-search.html" id="notification" ><span class="notification-text">Create Job Alert</span><i class="fa fa-bell"></i></a> {% endcomment %}
 
 
 

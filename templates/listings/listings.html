@@ -12,178 +12,21 @@
 				<div class="row">
 	<!--Left Side Content-->
 	<div class="col-xl-3 col-lg-4 col-md-12">
-	{% comment %} <div class='hide-details2'> {% endcomment %}
 		<div class="card">
 			<div class="card-header">
-				<h3 class="card-title">Categories </h3>
+				<h3 class="card-title">Фильтры </h3>
 			</div>
 			<div class="card-body">
 				<div class="" id="container">
 				<form method = 'GET'>
-						{{myFilter.form|crispy}}
-					
-						<button type="submit" class="btn btn-info btn-block">Применить</button>
-
-				</form>
-
-
-					<div class="filter-product-checkboxs">
-						<label  for="id_vendor" class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" id = 'vendor' class="custom-control-input" name="vendor" value="option1">
-							<span class="custom-control-label">
-							
-								<a href="#" class="text-dark">{{myFilter.form.vendor.label}}<span class="label label-secondary float-right">14</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="{{myFilter.form.vendor.label}}" value="option2">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Маркетинг<span class="label label-secondary float-right">22</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox3" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Разработка<span class="label label-secondary float-right">78</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox4" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Beautician<span class="label label-secondary float-right">35</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox5" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">IT/Hardware<span class="label label-secondary float-right">23</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox6" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Driver<span class="label label-secondary float-right">14</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">IT/Software<span class="label label-secondary float-right">45</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">HR Recruiter<span class="label label-secondary float-right">34</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Customer Support(BPO)<span class="label label-secondary float-right">12</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Sales<span class="label label-secondary float-right">18</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Teachers/Lecturers<span class="label label-secondary float-right">02</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Life Insurance<span class="label label-secondary float-right">15</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Delivery Boy<span class="label label-secondary float-right">32</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Web Designer<span class="label label-secondary float-right">23</span></a>
-							</span>
-						</label>
-						<label class="custom-control custom-checkbox mb-3">
-							<input type="checkbox" class="custom-control-input" name="checkbox7" value="option3">
-							<span class="custom-control-label">
-								<a href="#" class="text-dark">Web Developer<span class="label label-secondary float-right">19</span></a>
-							</span>
-						</label>
-					</div>
-
+					{{myFilter.form|crispy}}
 				</div>
 			</div>
-			<div class="card-header border-top">
-				<h3 class="card-title">Salary Range</h3>
-			</div>
-			<div class="card-body">
-				<h6>
-					<label for="price">Стоимость курса:</label>
-					<input type="text" id="price">
-				</h6>
-				<div id="mySlider"></div>
-			</div>
-			<div class="card-header border-top">
-				<h3 class="card-title">Рейтинг</h3>
-			</div>
-			<div class="card-body">
-				<div class="filter-product-checkboxs">
-					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="checkbox1" value="option1">
-						<span class="custom-control-label">
-							4+
-						</span>
-					</label>
-					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
-						<span class="custom-control-label">
-							3+
-						</span>
-					</label>
-					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="checkbox2" value="option2">
-						<span class="custom-control-label">
-							Ниже 3
-						</span>
-					</label>
-					
-				</div>
-			</div>
-			<div class="card-header border-top">
-				<h3 class="card-title">Продолжительность</h3>
-			</div>
-			{% comment %} <div class="card-body"> {% endcomment %}
-				<form action="{% url 'listings' %}"   class="card-body"method='GET' >
-				<div class="filter-product-checkboxs">
-				{% for key, value in course_duration.items %}
-					<label class="custom-control custom-checkbox mb-2">
-						<input type="checkbox" class="custom-control-input" name="course_duration" value="{{key}}">
-						<span class="custom-control-label">
-							{{value}}
-						</span>
-					</label>
-					{% endfor %}
-					
-				</div>
-				
-			{% comment %} </div> {% endcomment %}
 			<div class="card-footer">
 				<button type="submit" class="btn btn-info btn-block">Применить</button>
-				<a type='submit' href="{% url 'listings' %}" class="btn btn-info btn-block">Apply Filter</a>
+				</form>
 			</div>
-			</form>
 			</div>
-	{% comment %} </div> {% endcomment %}
 	
 	</div>
 	<!--/Left Side Content-->
@@ -195,46 +38,46 @@
 									<div class=" mb-0">
 										<div class="">
 											<div class="p-5 bg-white item2-gl-nav d-flex">
-												<h6 class="mb-0 mt-3">Showing <b>1 to 10</b> of 30 Entries</h6>
+												<h6 class="mb-0 mt-3">Найдено курсов: <b>{{len_listiings}}</b> </h6>
 												<ul class="nav item2-gl-menu mt-1 ml-auto">
 													<li class=""><a href="#tab-11" class="active show" data-toggle="tab" title="Grid"><i class="fa fa-th"></i></a></li>
 													<li><a href="#tab-12" data-toggle="tab" class="" title="List style"><i class="fa fa-list"></i></a></li>
 												</ul>
 												<div class="d-flex">
-													<label class="mr-2 mt-2 mb-sm-1">Sort By:</label>
-													<select class="form-control select2-no-search w-70">
-														<option value="1">Relavant</option>
-														<option value="2">Newest First</option>
-														<option value="3">Highest Paid</option>
-														<option value="4">Lowest Paid</option>
-														<option value="5">High Ratings</option>
-														<option value="6">Popular</option>
+													{% comment %} <label class="mr-2 mt-2 mb-sm-1">Сортировать</label> {% endcomment %}
+													<form method="GET" action= "{% url 'listings' %}">
+													<select class="form-control select2-no-search w-165" name='sort_by' onchange='this.form.submit()'>
+															<option selected='true' disabled='disabled' >Сортировать по</option>
+														{% for key,value in ordering_choises.items %}
+															<option name='keywords'
+															 {% if key in request.%} selected='true'{% endif %} 
+															   value='{{key}}' >{{value}}</option>
+															{% comment %} <option value="hit_count">Популярные</option> {% endcomment %}
+																										
+														{% endfor %}
+													</form>
+
 													</select>
 												</div>
+											
 											</div>
 										</div>
 									</div>
 									<div class="tab-content">
 										<div class="tab-pane  active" id="tab-11">
-										<div class="row">
-											<div class="col-sm-12 mb-3">
-											<input type="text" id="myFilter" class="form-control" onkeyup="filterObjects()" placeholder="Search duration">
-											</div>
-										</div>
-										
+
 											{% if listings %}
 												{% for listing, rating in zipped_tabs %}
 											<div class="card overflow-hidden br-0 overflow-hidden filt" id='listings'>
 												<div class="d-md-flex">
 													<div class="p-0 m-0 item-card9-img">
-														<div class="item-card9-icons">
-																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class= "pe-7s-star">{{rating}} </i> </a>
-														</div>
+														{% comment %} <div class="item-card9-icons">
+																<a href="#" class="item-card9-icons1 bg-black-trasparant"> <i class= "fa fa-star">{{rating|floatformat:1}} </i> </a>
+														</div> {% endcomment %}
 														<div class="item-card9-imgs">
 														<div class="arrow-ribbon bg-purple">{{listing.vendor}}</div>
 															<a href="{% url 'listing' listing.slug %}"></a>
 															{% if listing.main_image %}
-															
 															<img src="{{ listing.main_image.url}}" alt="img" class="h-100">
 															{% endif %}
 														</div>
@@ -244,13 +87,11 @@
 															<div class="item-card9">
 																<a href="{% url 'listing' listing.slug %}" class="text-dark"><h4 class="font-weight-semibold mt-1 filt">{{listing.course_name}}</h4></a>
 																<div class="mt-2 mb-2">
-																	
 																	<a href="#" class="mr-4"><span><i class="fa fa-building-o text-muted mr-1"></i> {{listing.vendor}}</span></a>
-																	<a href="#" class="mr-4"><span><i class="fa fa-map-marker text-muted mr-1"></i> {{listing.direction_name}}</span></a>
+																	<a href="#" class="mr-4"><span><i class="fa fa-map-marker text-muted mr-1"></i> {{listing.direction_name.russian_alias}}</span></a>
 																	<a href="#" class="mr-4"><span><i class="fa fa fa-usd text-muted mr-1"></i> {{listing.price_full | intcomma}}</span></a>
 																	<a href="#" class="mr-4 ak_h"><span><i class="fa fa-clock-o text-muted mr-1"></i> {{listing.program_length}} мес	</span></a>
 																	<a href="#" class="mr-4"><span><i class="fa fa-briefcase text-muted mr-1"></i> {{listing.academic_hours}} ак.ч.</span></a>
-																	
 																</div>
 																<p class="mb-0 leading-tight">{{listing.description_short}}</p>
 															</div>
@@ -259,20 +100,24 @@
 															<div class="item-card9-footer d-flex">
 															    <div class="d-flex align-items-center mb-3 mb-md-0 mt-auto posted">
 																	<div>
+																		{%if listing.start_date%}
 																		<a href="profile.html" class="text-muted fs-12 mb-1">Ближайший старт </a><span class="ml-1 fs-13"> {{listing.start_date}}</span>
+																			{%endif%}
 																			<div class="item-card2-rating">
-																				<a><i class="fa fa-star {% if rating >= 1 %} text-yellow{% endif %}"></i></a>
-																				<a><i class="fa fa-star {% if rating >= 2 %} text-yellow{% endif %}"></i></a>
-																				<a><i class="fa fa-star {% if rating >= 3 %} text-yellow{% endif %}"></i></a>
-																				<a><i class="fa fa-star {% if rating >= 4 %} text-yellow{% endif %}"></i></a>
-																				<a><i class="fa fa-star {% if rating >= 5 %} text-yellow{% endif %} mr-1"></i>(145 reviews)</a>
+																				<a><i class="fa fa-star {% if listing.rating.average >= 1 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if listing.rating.average >= 2 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if listing.rating.average >= 3 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if listing.rating.average >= 4 %} text-yellow{% endif %}"></i></a>
+																				<a><i class="fa fa-star {% if listing.rating.average >= 5 %} text-yellow{% endif %} mr-1"></i>
+																				{% if listing.rating.count > 0 %}(Отзывов: {{listing.rating.count}}){% endif %}
+																				</a>
 																			</div>
 																	</div>
 																</div>
 																<div class="ml-auto">
-																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="fa fa-user text-muted mr-1"></i>{{listing.direction_name}}</a>
-																	<a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating {{rating |floatformat:1}}</a>
-																	<a href="{% url 'listing' listing.slug %}" class="btn btn-primary mt-3 mt-sm-0">Apply</a>
+																	{% comment %} <a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="fa fa-user text-muted mr-1"></i>{{listing.direction_name}}</a> {% endcomment %}
+																	{% comment %} <a href="{% url 'listing' listing.slug %}" class="mr-3"><i class="ion-checkmark-circled text-success mr-1"></i>Rating {{rating |floatformat:1}}</a> {% endcomment %}
+																	<a href="{% url 'listing' listing.slug %}" class="btn btn-primary mt-3 mt-sm-0">Отзывы о курсе</a>
 																</div>
 															</div>
 														</div>
@@ -285,18 +130,9 @@
 													<p> No content </p>
 												</div>
 											{% endif %}
-
 										</div>
-										
+
 										<div class="tab-pane active" id="tab-12">
-										<div class="input-group">
-									<input type="text" class="form-control br-tl-7 br-bl-7" placeholder="Поиск по курсам">
-									<div class="input-group-append ">
-										<button type="button" class="btn btn-white br-tr-7 br-br-7">
-											<i class="fa fa-search" aria-hidden="true"></i>
-										</button>
-									</div>
-								</div>
 								<div class="card mt-5 store">
 									<div class="table-responsive">
 										<table class="table card-table table-vcenter text-nowrap">
@@ -316,16 +152,16 @@
 											{% for listing, rating in zipped %}
 											<tr>
 												<td><a href='{% url 'listing' listing.slug %}'> {{listing.course_name}} </a>	<span class="label label-warning arrowed-in-right arrowed">{{listing.vendor}}</span>	</td>
-												
+
 												<td>
 													<div class="rating-stars block">
 														{% comment %} <div class="rating-stars-container"> {% endcomment %}
 														<div class="item-card2-rating">
-														<a><i class="fa fa-star{% if rating >= 1 %} text-yellow{% endif %}"></i></a>
-														<a><i class="fa fa-star{% if rating >= 2 %} text-yellow{% endif %}"></i></a>
-														<a><i class="fa fa-star{% if rating >= 3 %} text-yellow{% endif %}"></i></a>
-														<a><i class="fa fa-star{% if rating >= 4 %} text-yellow{% endif %}"></i></a>
-														<a><i class="fa fa-star{% if rating >= 5 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if listing.rating.average >= 1 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if listing.rating.average >= 2 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if listing.rating.average >= 3 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if listing.rating.average >= 4 %} text-yellow{% endif %}"></i></a>
+														<a><i class="fa fa-star{% if listing.rating.average >= 5 %} text-yellow{% endif %}"></i></a>
 
 													
 														</div>
@@ -342,52 +178,7 @@
 											
 										</table>
 									</div>
-{% comment %} 									
-											<div class="row">
-												{% if listings %}
-													{% for listing in listings %}
-													<div class="col-lg-6 col-md-6 col-sm-12 col-xl-4">
-													<div class="card overflow-hidden">
-														<div class="item-card9-img border-bottom">
-															<div class="item-card9-imgs">
-																<a href="{% url 'listing' listing.slug %}"></a>
-																{% if listing.main_image %}
 
-																<img src="{{ listing.main_image.url}}" alt="img" class="h-100">
-																{% endif %}
-															</div>
-														</div>
-														<div class="card-body">
-															<div class="item-card9">
-																<a href="{% url 'listing' listing.slug %}" class="text-dark mt-2"><h4 class="font-weight-semibold mt-1 mb-2">{{listing.course_name}}</h4></a>
-																<ul class="icon-card mb-0 mt-1">
-																	<li class=""><a href="#" class="icons"><i class="fa fa-building-o text-muted mr-1"></i> {{listing.vendor}}</a></li>
-																	<li><a href="#" class="icons"><i class="fa fa-map-marker text-muted mr-1"></i>{{listing.start_date}}</a></li>
-																	<li class="mb-0"><a href="#" class="icons"><i class="fa fa-usd text-muted mr-1"></i>  {{listing.price_full | intcomma}}</a></li>
-																	<li class="mb-0"><a href="#" class="icons"><i class="fa fa-clock-o text-muted mr-1"></i> {{listing.program_length}} мес.</a></li>
-																</ul>
-																<p class="mb-0 mt-2">{{listing.description_short}}</p>
-															</div>
-														</div>
-														<div class="card-body p-3 pl-5 pr-5">
-															<a href="mr-4" class="icons"><i class="fa fa-user text-muted mr-1"></i> {{listing.direction_name}}</a>
-															<a class="float-right"><i class="ion-checkmark-circled text-success mr-1"></i> Rating {{listing.rating}}</a>
-														</div>
-														<div class="card-footer pt-3 pb-3">
-															<div class="item-card9-footer d-flex">
-																<div class="btn-block">
-																	<a href="{% url 'listing' listing.slug %}" class="btn btn-block btn-primary"> Apply Now</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-													{% endfor %}
-												{% else %}
-												<div class="col-md-12">
-													<p> No content </p>
-												</div>
-												{% endif %} {% endcomment %}
 
 											</div>
 										</div>
@@ -396,13 +187,13 @@
 								<div class="center-block text-center">
 									<ul class="pagination mb-0">
 										<li class="page-item page-prev disabled">
-											<a class="page-link" href="#" tabindex="-1">Prev</a>
+											<a class="page-link" href="#" tabindex="-1"> < </a>
 										</li>
 										<li class="page-item active"><a class="page-link" href="#">1</a></li>
 										<li class="page-item"><a class="page-link" href="#">2</a></li>
 										<li class="page-item"><a class="page-link" href="#">3</a></li>
 										<li class="page-item page-next">
-											<a class="page-link" href="#">Next</a>
+											<a class="page-link" href="#">></a>
 										</li>
 									</ul>
 								</div>

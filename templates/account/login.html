@@ -77,7 +77,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
                 <form class="card-body" tabindex="500" method="POST" action="{% url 'account_login' %}">
                   {% csrf_token %}
-                  {{ form |crispy  }}
+                  {{ form|crispy  }}
                   {% if redirect_field_value %}
                   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                   {% endif %}
@@ -89,11 +89,13 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 										</div>
                   
 									<div class="btn-list d-sm-flex">
-                  
                   <a class="btn btn-light btn" href="{% url 'account_reset_password' %}">{% trans "Забыли пароль?" %}</a>
+                  
                   <button class="btn btn-primary btn-block" type="submit">{% trans "Войти" %}</button>
+
                   </div>
                 </form>
+
 								{% comment %} <form action='{% url 'account_login' %}' method='POST' id="login" class="card-body" tabindex="500">
                                         {% csrf_token %}
 
