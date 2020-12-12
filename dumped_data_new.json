@@ -1,0 +1,117 @@
+[
+{
+  "model": "listings.category",
+  "pk": 3,
+  "fields": {
+    "category_name": "Programming",
+    "russian_alias": "Разработка",
+    "slug": "programming",
+    "is_active": true
+  }
+},
+{
+  "model": "listings.category",
+  "pk": 4,
+  "fields": {
+    "category_name": "Design",
+    "russian_alias": "Дизайн",
+    "slug": "design",
+    "is_active": true
+  }
+},
+{
+  "model": "listings.vendor",
+  "pk": 1,
+  "fields": {
+    "vendor": "Skillbox",
+    "slug": "skillbox",
+    "is_active": true,
+    "description": ""
+  }
+},
+{
+  "model": "listings.vendor",
+  "pk": 2,
+  "fields": {
+    "vendor": "Яндекс.Практикум",
+    "slug": "yandex-praktikum",
+    "is_active": true,
+    "description": ""
+  }
+},
+{
+  "model": "listings.vendor",
+  "pk": 3,
+  "fields": {
+    "vendor": "Нетология",
+    "slug": "netologiia",
+    "is_active": true,
+    "description": "Открыта давным давно, много всего интересного, есть офлайн есть онлайн и тд"
+  }
+},
+{
+  "model": "listings.vendor",
+  "pk": 4,
+  "fields": {
+    "vendor": "Contented",
+    "slug": "contented",
+    "is_active": true,
+    "description": ""
+  }
+},
+{
+  "model": "listings.listing",
+  "pk": 10000,
+  "fields": {
+    "vendor": 4,
+    "course_name": "sdassa",
+    "slug": "sdassa",
+    "direction_name": 3,
+    "price_full": 1000,
+    "price_per_month": 12,
+    "description_full": "knklk",
+    "description_short": "dsdsds",
+    "program_length": 12,
+    "academic_hours": 120,
+    "start_date": "2020-11-20",
+    "format": "",
+    "specials": "",
+    "p_code": "",
+    "main_image": "",
+    "is_free": false,
+    "course_published": true,
+    "link_to_product": "https://praktikum.yandex.ru/interface-designer/",
+    "rating": null
+  }
+},
+{
+  "model": "listings.listing",
+  "pk": 10001,
+  "fields": {
+    "vendor": 3,
+    "course_name": "Как стать дизайнером интерфейсов",
+    "slug": "kak-stat-dizainerom-interfeisov",
+    "direction_name": 4,
+    "price_full": 80000,
+    "price_per_month": 13000,
+    "description_full": "",
+    "description_short": "",
+    "program_length": 7,
+    "academic_hours": 70,
+    "start_date": "2020-11-01",
+    "format": "",
+    "specials": "",
+    "p_code": "",
+    "main_image": "",
+    "is_free": false,
+    "course_published": true,
+    "link_to_product": "https://praktikum.yandex.ru/interface-designer/",
+    "rating": null
+  }
+},
+{
+  "model": "listings.listing",
+  "pk": 10002,
+  "fields": {
+    "vendor": 2,
+    "course_name": 

@@ -147,7 +147,8 @@ def listing(request,slug):
     comments = comments_all.filter(status= True)
     comments_total = comments.count()
     vendor = Vendor.objects.get(vendor=listing.vendor)
-    rating_all = Rating.objects.all().get(object_id=vendor.pk)
+    # rating_all = Rating.objects.all().get(object_id=vendor.pk)
+    rating_all = listing.rating
     rating = rating_all.average
 
     user_have_commented = True
