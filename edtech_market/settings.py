@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+from os import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'b@e(89(q6%4oxmquv!^fh3j^p$zx@gygqp)&_1=ap%7hxiya*p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['edtech-review.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['edtech-review.herokuapp.com', 'localhost',  '127.0.0.1']
 
 
 # Application definition
@@ -92,16 +93,24 @@ WSGI_APPLICATION = 'edtech_market.wsgi.application'
 # DATABASE_URL: postgres://duesustgpjtsjg:6e2c3463f268d93739946f04277e7e3c08c04b31b45860ddd8c42cefedc9871b@ec2-54-228-250-82.eu-west-1.compute.amazonaws.com:5432/dtug35ea3clsm
 # ?sslmode=require  - надо добавить
 DATABASES = {
-    'default': {
+    'test': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'edtech_marketplace',
         'USER': 'postgres',
         'PASSWORD': 'rimash456654',
         'HOST': 'localhost',
-
+    
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dtug35ea3clsm',
+        'USER': 'duesustgpjtsjg',
+        'PASSWORD': '6e2c3463f268d93739946f04277e7e3c08c04b31b45860ddd8c42cefedc9871b',
+        'HOST': 'ec2-54-228-250-82.eu-west-1.compute.amazonaws.com',
     }
 }
-
+default_database = environ.get('DJANGO_DATABASE', 'default')
+DATABASES['default'] = DATABASES[default_database]
 
 
 AUTHENTICATION_BACKENDS = {
