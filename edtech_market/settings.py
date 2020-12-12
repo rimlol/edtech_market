@@ -26,7 +26,7 @@ SECRET_KEY = 'b@e(89(q6%4oxmquv!^fh3j^p$zx@gygqp)&_1=ap%7hxiya*p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://edtech-review.herokuapp.com/']
+ALLOWED_HOSTS = ['edtech-review.herokuapp.com', 'localhost']
 
 
 # Application definition
