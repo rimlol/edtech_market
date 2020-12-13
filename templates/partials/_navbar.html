@@ -16,7 +16,15 @@
                             </ul> {% endcomment %}
                         </li>
                         <li><a href="{% url 'categories' %}" >Направления <span class="fa fa-caret-down m-0"></span></a>
-                            <div class="horizontal-megamenu clearfix">
+                            <ul class="sub-menu">
+                                {% for category in categories %}
+                                <li>
+                                    <a href="{% url 'category' category.slug %}">{{category.russian_alias}}</a>
+                                </li>
+                                {% endfor %}
+                                
+                            </ul>
+                            {% comment %} <div class="horizontal-megamenu clearfix">
                                 <div class="container">
                                     <div class="megamenu-content">
                                         <div class="row">
@@ -93,7 +101,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </li>
                         {% comment %} <li><a href="#">Blog <span class="fa fa-caret-down m-0"></span></a>
                             <ul class="sub-menu">

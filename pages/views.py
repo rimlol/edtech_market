@@ -19,7 +19,7 @@ from hitcount.views import HitCountMixin
 
 def index(request, tag_slug=None):
     vendors = Vendor.objects.all().filter(is_active = True)
-
+    categorys = Category.objects.all()
     # задать фильтрацию  листингов на основе запроса пользователя
     listings = Listing.objects.all() #.order_by('-rating').filter(course_published=True)
     ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
@@ -83,6 +83,7 @@ def index(request, tag_slug=None):
         'len_listiings':len_listiings,
         'vendors': vendors,
         'ordering_choises' : ordering_choises,
+        'categorys': categorys,
     }
 
     """

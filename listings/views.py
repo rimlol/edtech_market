@@ -18,6 +18,7 @@ from hitcount.views import HitCountMixin
 
 def index(request, tag_slug=None):
     vendors = Vendor.objects.all().filter(is_active = True)
+    categories  = Category.objects.all().filter(is_active = True)
 
     # задать фильтрацию  листингов на основе запроса пользователя
     listings = Listing.objects.all() #.order_by('-rating').filter(course_published=True)
@@ -90,6 +91,7 @@ def index(request, tag_slug=None):
         'vendors': vendors,
         'ordering_choises' : ordering_choises,
         'meta':meta,
+        'categories': categories,
     }
 
     """
@@ -140,7 +142,7 @@ def VendorSubrate(overall_rate, vendor, request):
 
 def listing(request,slug):
     vendors = Vendor.objects.all().filter(is_active = True)
-
+    categories  = Category.objects.all().filter(is_active = True)
     listing = get_object_or_404(Listing, slug=slug)
     listings = Listing.objects.filter(direction_name=listing.direction_name).filter(course_published=True) #нужно ли оно хз
     comments_all = Comment.objects.filter(listing = listing)
@@ -194,6 +196,7 @@ def listing(request,slug):
             'tags': listing.tags.all(),
             'vendors':vendors,
             'meta':meta,
+            'categories':categories,
             # 'hit_count': hit_count,
             # 'hit_count_response':hit_count_response,
         }
@@ -233,7 +236,7 @@ def listing(request,slug):
 def category(request,slug):
     category = Category.objects.get(slug=slug)
     vendors = Vendor.objects.all().filter(is_active = True)
-    
+    categories  = Category.objects.all().filter(is_active = True)
     listings = Listing.objects.filter(direction_name=category.pk)
     ratings = Rating.objects.all().filter(object_id__range=[10000,100000])
     rates = [ratings.get(object_id=listing.pk).average for listing in listings]
@@ -251,7 +254,9 @@ def category(request,slug):
         'zipped':zipped,
         'zipped_tabs':zipped_tabs,
         'myFilter' : myFilter,
-        'vendors': vendors
+        'vendors': vendors,
+        'categories':categories,
+
     }
 
     
@@ -299,6 +304,8 @@ def categories(request):
 
 def vendors(request):
     vendors = Vendor.objects.all().filter(is_active = True)
+    categories  = Category.objects.all().filter(is_active = True)
+
     all_vendor_courses_count = {}
     for vendor in vendors:
         vendor_courses_count = Listing.objects.filter(course_published=True).filter(vendor = vendor).count()
@@ -314,12 +321,14 @@ def vendors(request):
     context = {
         'vendors':vendors,
         'all_vendor_courses_count': all_vendor_courses_count,
+        'categories':categories,
     }
 
     return render(request, 'listings/vendors.html', context)
 
 def vendor(request,slug): # допилить
     vendors = Vendor.objects.all().filter(is_active = True)
+    categories  = Category.objects.all().filter(is_active = True)
 
     vendor = get_object_or_404(Vendor, slug=slug)
     vendor_rate = Rating.objects.get(object_id = vendor.pk).average
@@ -359,6 +368,7 @@ def vendor(request,slug): # допилить
         'comments_total':comments_total,
         'user_have_commented': user_have_commented,
         'vendors':vendors,
+        'categories':categories,
     }
 
     if request.method == 'POST':
