@@ -9196,6 +9196,7 @@ a.icon {
     padding-left: .75rem !important; } }
 
 @media (max-width: 375px) {
+  
   .nav-link span,
   .searching1 i {
     margin-top: .5rem; }
