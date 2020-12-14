@@ -208,3 +208,5 @@ SITE_ID = 1
 
 #crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+

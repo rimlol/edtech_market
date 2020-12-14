@@ -152,13 +152,15 @@ def listing(request,slug):
     # rating_all = Rating.objects.all().get(object_id=vendor.pk)
     rating_all = listing.rating
     rating = rating_all.average
-
+    comment_status = None
     user_have_commented = True
     if request.user.is_authenticated:
-        comments_of_user = comments_all.filter(user=request.user, listing=listing)
-
-        if comments_of_user.exists():
+        comments_of_user = comments_all.filter(user=request.user, listing=listing).last()
+        if comments_of_user:
             user_have_commented = True
+            comment_status = comments_of_user.status 
+            
+            print(comment_status)
         else:
             user_have_commented = False
     '''
@@ -197,6 +199,7 @@ def listing(request,slug):
             'vendors':vendors,
             'meta':meta,
             'categories':categories,
+            'comment_status':comment_status,
             # 'hit_count': hit_count,
             # 'hit_count_response':hit_count_response,
         }

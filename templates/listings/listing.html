@@ -590,14 +590,26 @@
 								
 								 <div class="card-body">
 									{% if new_comment %}
-									<div class="alert alert-success" role="alert">
-										Your comment is awaiting moderation
+									<div class="alert alert-success" role="alert"> 
+									 Ваш комментарий ожидает модерации
 									</div>
+
 									{% else %}
-									<h3>Оставить отзыв</h3>
+									
+
 										{% if user.is_authenticated %}
 												{% if  user_have_commented %}
-												<p>Вы уже оставляли отзыв, если ваше мнение о курсе изменилсь - пожалуйста, отредактируйте отзыв</p>
+												<p>Вы уже оставляли отзыв.</p>
+												{% if comment_status == 'New' %}
+												<p>Ваш отзыв отобразится после прохождения модерации. </p>
+												{% elif comment_status == 'False' %}
+												<p>Ваш отзыв не прошел модерацию. </p>
+												{% elif comment_status == 'True' %}
+												<p>Ваш отзыв был успешно опубликован. </p>
+												
+
+												
+												{% endif %}
 												{% else %}
 												
 									<form class="card-body" method="post">
