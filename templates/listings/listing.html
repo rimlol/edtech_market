@@ -109,8 +109,9 @@
 								<h3 class="card-title">Поиск по курсам</h3>
 							</div>
 							<div class="card-body">
+								<form action='{% url 'listings' %}'>
 								<div class="form-group">
-									<input type="text" class="form-control" id="search-text" placeholder="Поиск по курсам">
+									<input type="text" id='id_course_name' name="course_name" class="form-control" id="search-text" placeholder="Поиск по курсам">
 								</div>
 								{% comment %} <div class="form-group">
 									<select name="country" id="select-countries" class="form-control custom-select select2-show-search">
@@ -121,9 +122,9 @@
 										{% endfor %}
 									</select>
 								</div> {% endcomment %}
-								<div class="">
-									<a href="#" class="btn btn-block btn-primary">Поиск</a>
-								</div>
+								
+								<button type="submit" class="btn btn-primary btn-block">Поиск</button>
+								</form>
 							</div>
 						</div>
 
@@ -177,7 +178,7 @@
 										<div class="profile-pic mb-0">
 											<div class="d-md-flex">
 												{% if listing.main_image %}
-												<img src="{{ listing.main_image.url}}"  class="w-20 h-20" alt="user">
+												<img src="{{ listing.main_image.url}}"  class="w-20 h-20" alt="{{listing.course_name}}">
 												{% endif %}
 												<div class="ml-4">
 													<a href="{{listing.link_to_product}}" class="text-dark"><h4 class="mt-3 mb-1 fs-20 font-weight-bold">{{listing.course_name}}</h4></a>
