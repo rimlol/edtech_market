@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_filters',
     'taggit', 
     'hitcount',
+    'storages',
 
 
 
@@ -191,9 +192,33 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'edtech_market/static')
     ]
 
+
+
+# AWS settings
+USE_S3 = True # os.getenv('USE_S3') ==
+if USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = 'AKIA4IST2PP6KT2H7A7X'  #os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = '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' # os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = 'edtech-reviews-media' #os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    #media settings
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'edtech_market.storage_backends.PublicMediaStorage'
+
+
 # Media Folder Settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+
+
+
 
 # Star rating
 STAR_RATINGS_STAR_WIDTH = 13
