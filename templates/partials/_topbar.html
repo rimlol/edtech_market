@@ -24,7 +24,7 @@
                                 >
                                     {% if user.is_authenticated %}
                                      {% comment %} <span>Добро пожаловать, {{user.username}}</span> {% endcomment %}
-                                     <a href="" class=""><i class="fa fa-user mr-1"></i> <span>Добро пожаловать, {{user.username}}</span></a>
+                                     <a href="{% url 'dashboard' %}" class=""><i class="fa fa-user mr-1"></i> <span>Добро пожаловать, {{user.username}}</span></a>
                                    {% else %}
                                     <a href="{% url 'account_signup' %}?next={{request.path}}" class=""><i class="fa fa-user mr-1"></i> <span>Регистрация</span></a>
 

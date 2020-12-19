@@ -1,6 +1,6 @@
 from django.db.models import query
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.functional import empty
 from listings.models import Category, Listing, Comment, Vendor, VendorComment
 from django.contrib.auth.models import User, AnonymousUser
@@ -14,6 +14,7 @@ from listings.filters import ListingCategoryFilter, ListingFilter, ordering_choi
 from taggit.models import Tag 
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
+from allauth.account.models import EmailAddress
 # from .dataimport import skillbox_programming_data
 
 
@@ -115,5 +116,27 @@ def index(request, tag_slug=None):
 def about(request):
     return render(request, 'pages/about.html')
 
-def dashboard(request):
-    return render(request, 'pages/dashboard.html')
+def dashboard(request, ):
+    if request.user.is_authenticated:
+        # надо дорабатывать пока не работает
+        vendors = Vendor.objects.all().filter(is_active = True)
+        categories  = Category.objects.all().filter(is_active = True)
+
+        if request.method == 'POST':
+            if request.user.is_authenticated:
+                user =  User(user=request.user) #поменять имя тут
+                print (user)
+                
+                user.username = request.POST
+                user.save()
+
+
+        context = {
+            'categories': categories,
+            'vendors': vendors,
+            
+        }
+
+        return render(request, 'pages/dashboard.html', context)
+    else:
+        return redirect('/')

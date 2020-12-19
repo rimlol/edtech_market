@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from os import environ
+from .local_prod_settings import local, local_vars,debug
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +25,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b@e(89(q6%4oxmquv!^fh3j^p$zx@gygqp)&_1=ap%7hxiya*p'
+SECRET_KEY = local_vars['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = debug
 
 ALLOWED_HOSTS = ['edtech-review.herokuapp.com', 'localhost',  '127.0.0.1', 'www.edtech.reviews', 'edtech.reviews']
 
@@ -201,23 +202,36 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'edtech_market/static')
     ]
 
-
-
-# AWS settings
-USE_S3 = True # os.getenv('USE_S3') ==
-if USE_S3:
+if local == True:
+    USE_S3 = True # os.getenv('USE_S3') ==
+    if USE_S3:  
     # aws settings
-    print(environ)
-    AWS_ACCESS_KEY_ID = environ['AWS_ACCESS_KEY_ID'] #'AKIA4IST2PP6KT2H7A7X'  #
-    AWS_SECRET_ACCESS_KEY = environ['AWS_SECRET_ACCESS_KEY'] #'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' # 
-    AWS_STORAGE_BUCKET_NAME = environ['AWS_STORAGE_BUCKET_NAME'] #'edtech-reviews-media' #
-    AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-    #media settings
-    PUBLIC_MEDIA_LOCATION = 'media'
-    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-    DEFAULT_FILE_STORAGE = 'edtech_market.storage_backends.PublicMediaStorage'
+        AWS_ACCESS_KEY_ID = 'AKIA4IST2PP6KT2H7A7X'  #
+        AWS_SECRET_ACCESS_KEY = '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' # 
+        AWS_STORAGE_BUCKET_NAME = 'edtech-reviews-media' #
+        AWS_DEFAULT_ACL = 'public-read'
+        AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+        AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+        #media settings
+        PUBLIC_MEDIA_LOCATION = 'media'
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+        DEFAULT_FILE_STORAGE = 'edtech_market.storage_backends.PublicMediaStorage'
+
+else:
+    # AWS settings
+    USE_S3 = True # os.getenv('USE_S3') ==
+    if USE_S3:
+        # aws settings
+        AWS_ACCESS_KEY_ID = environ['AWS_ACCESS_KEY_ID'] #'AKIA4IST2PP6KT2H7A7X'  #
+        AWS_SECRET_ACCESS_KEY = environ['AWS_SECRET_ACCESS_KEY'] #'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' # 
+        AWS_STORAGE_BUCKET_NAME = environ['AWS_STORAGE_BUCKET_NAME'] #'edtech-reviews-media' #
+        AWS_DEFAULT_ACL = 'public-read'
+        AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+        AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+        #media settings
+        PUBLIC_MEDIA_LOCATION = 'media'
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+        DEFAULT_FILE_STORAGE = 'edtech_market.storage_backends.PublicMediaStorage'
 
 
 # Media Folder Settings

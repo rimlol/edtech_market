@@ -5,7 +5,7 @@
 {% block content %}
 
 
-	
+
 
 	
 
@@ -34,15 +34,15 @@
 					<div class="col-xl-3 col-lg-12 col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h3 class="card-title">My Dashboard</h3>
+								<h3 class="card-title">Профиль</h3>
 							</div>
 							<div class="card-body text-center item-user border-bottom">
 								<div class="profile-pic">
 									<div class="profile-pic-img">
 										<span class="bg-success dots" data-toggle="tooltip" data-placement="top" title="online"></span>
-										<img src="../assets/images/users/male/25.jpg" class="brround" alt="user">
+										{% comment %} <img src="../assets/images/users/male/25.jpg" class="brround" alt="user"> {% endcomment %}
 									</div>
-									<a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-0 font-weight-semibold">Robert McLean</h4></a>
+									<a href="userprofile.html" class="text-dark"><h4 class="mt-3 mb-0 font-weight-semibold">{{user.username}}</h4></a>
 								</div>
 							</div>
 							<div class="item1-links  mb-0">
@@ -55,22 +55,11 @@
 								<a href="myfavorite.html" class="d-flex border-bottom">
 									<span class="icon1 mr-2"><i class="typcn typcn-heart-outline fs-20"></i></span> Выслать подтверждение
 								</a>
-								{% comment %} <a href="manged.html" class="d-flex  border-bottom">
-									<span class="icon1 mr-2"><i class="typcn typcn-folder fs-20"></i></span> Managed Jobs
-								</a>
-								<a href="payments.html" class=" d-flex  border-bottom">
-									<span class="icon1 mr-2"><i class="typcn typcn-credit-card fs-20"></i></span> Payments
-								</a>
-								<a href="orders.html" class="d-flex  border-bottom">
-									<span class="icon1 mr-2"><i class="typcn typcn-shopping-cart fs-20"></i></span> Orders
-								</a>
-								<a href="tips.html" class="d-flex border-bottom">
-									<span class="icon1 mr-2"><i class="typcn typcn-flag-outline fs-20"></i></span> Safety Tips
-								</a> {% endcomment %}
+								
 								<a href="settings.html" class="d-flex border-bottom">
 									<span class="icon1 mr-2"><i class="typcn typcn-cog-outline fs-20"></i></span> Settings
 								</a>
-								<a href="login.html" class="d-flex">
+								<a href="{% url 'account_logout' %}?next={% url 'listings' %}" class="d-flex"> 
 									<span class="icon1 mr-2"><i class="typcn typcn-power-outline fs-20"></i></span> Выйти
 								</a>
 							</div>
@@ -114,119 +103,71 @@
 					<div class="col-xl-9 col-lg-12 col-md-12">
 						<div class="card mb-0">
 							<div class="card-header">
-								<h3 class="card-title">Edit Profile</h3>
+								<h3 class="card-title">Настройки профиля</h3>
 							</div>
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-6 col-md-6">
+									
 										<div class="form-group">
-											<label class="form-label">First Name</label>
-											<button class='btn btn-primary'> Сменить пароль</button>
+											<label class="form-label">Изменить Имя</label>
+											<input type="email" class="form-control" placeholder="Имя">
 										</div>
 									</div>
+									
 									<div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<label class="form-label">Last Name</label>
-											<button class='btn btn-primary'> Выслать подтверждение повторно</button>
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-6">
-										<div class="form-group">
-											<label class="form-label">Email address</label>
-											<input type="email" class="form-control" placeholder="Email">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-6">
-										<div class="form-group">
-											<label class="form-label">Phone Number</label>
-											<input type="number" class="form-control" placeholder="Number">
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="form-label">Address</label>
-											<input type="text" class="form-control" placeholder="Home Address">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-4">
-										<div class="form-group">
-											<label class="form-label">City</label>
-											<input type="text" class="form-control" placeholder="City">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-3">
-										<div class="form-group">
-											<label class="form-label">Postal Code</label>
-											<input type="number" class="form-control" placeholder="ZIP Code">
-										</div>
-									</div>
-									<div class="col-md-5">
-										<div class="form-group">
-											<label class="form-label">Country</label>
-											<select class="form-control select2-show-search border-bottom-0 w-100 select2-show-search" data-placeholder="Select">
-												<optgroup label="Categories">
-													<option>--Select--</option>
-													<option value="1">Germany</option>
-													<option value="2">Real Estate</option>
-													<option value="3">Canada</option>
-													<option value="4">Usa</option>
-													<option value="5">Afghanistan</option>
-													<option value="6">Albania</option>
-													<option value="7">China</option>
-													<option value="8">Denmark</option>
-													<option value="9">Finland</option>
-													<option value="10">India</option>
-													<option value="11">Kiribati</option>
-													<option value="12">Kuwait</option>
-													<option value="13">Mexico</option>
-													<option value="14">Pakistan</option>
-												</optgroup>
-											</select>
+											{% comment %} <label class="form-label">Last Name</label> {% endcomment %}
+										
+								<div class="card mb-xl-0">
+							<div class="card-header">
+								<h3 class="card-title">Ваши данные</h3>
+							</div>
+							<div class="card-body">
+								<ul class="list-unstyled widget-spec  mb-0">
+									<li class="">
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Почта : <p> {{user.email}}</p>
+									</li>
+									<li class="">
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Имя : <p> {{user.email}}</p>
+									</li>
+									<li class="">
+										<i class="fa fa-check text-success" aria-hidden="true"></i> Количество отзывов : <p> {{user.email}}</p>
+									</li>
+								
+									
+								</ul>
+							</div>
+							</div>
 										</div>
 									</div>
 									{% comment %} <div class="col-sm-6 col-md-6">
 										<div class="form-group">
-											<label class="form-label">Facebook</label>
-											<input type="text" class="form-control" placeholder="https://www.facebook.com/">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-6">
-										<div class="form-group">
-											<label class="form-label">Google</label>
-											<input type="text" class="form-control" placeholder="https://www.google.com/">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-6">
-										<div class="form-group">
-											<label class="form-label">Twitter</label>
-											<input type="text" class="form-control" placeholder="https://twitter.com/">
-										</div>
-									</div>
-									<div class="col-sm-6 col-md-6">
-										<div class="form-group">
-											<label class="form-label">Pinterest</label>
-											<input type="text" class="form-control" placeholder="https://in.pinterest.com/">
+											<label class="form-label">Email address</label>
+											<input type="email" class="form-control" placeholder="Email">
 										</div>
 									</div> {% endcomment %}
-									<div class="col-md-12">
+								
+
+									{% comment %} <div class="col-md-12">
 										<div class="form-group">
 											<label class="form-label">About Me</label>
 											<textarea rows="5" class="form-control" placeholder="Enter About your description"></textarea>
 										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="form-group mb-0">
-											<label class="form-label">Upload Image</label>
-											<div class="custom-file">
-												<input type="file" class="custom-file-input" name="example-file-input-custom">
-												<label class="custom-file-label">Choose file</label>
+									</div> {% endcomment %}
+										{% comment %} <div class="col-md-12">
+											<div class="form-group mb-0">
+												<label class="form-label">Загрузить фото профиля</label>
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" name="example-file-input-custom">
+													<label class="custom-file-label">Выбрать фото</label>
+												</div>
 											</div>
-										</div>
-									</div>
+										</div> {% endcomment %}
 								</div>
 							</div>
 							<div class="card-footer">
-								<button type="submit" class="btn btn-primary">Updated Profile</button>
+								<button type="submit" class="btn btn-primary">Сохранить изменения</button>
 							</div>
 						</div>
 					</div>
