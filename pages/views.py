@@ -114,3 +114,6 @@ def index(request, tag_slug=None):
 
 def about(request):
     return render(request, 'pages/about.html')
+
+def dashboard(request):
+    return render(request, 'pages/dashboard.html')

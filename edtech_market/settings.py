@@ -123,11 +123,12 @@ AUTHENTICATION_BACKENDS = {
     'allauth.account.auth_backends.AuthenticationBackend',
 }
 
+
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_USERNAME_REQUIRED = False
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #убрать после релиза
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
 # LOGIN_REDIRECT_URL = '/'
 
 # LOCALE_PATHS = ['/locale']   
@@ -139,6 +140,14 @@ LANGUAGE_CODE = 'ru'  # язык сайта по умолчанию
 #     # ('en', 'English'),
 # )
 
+
+# mail settings
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'info@edtech.reviews'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = '&t7f.vd4XCP$i2%'
 
 TIME_ZONE = 'Europe/Moscow'
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'), )
@@ -198,9 +207,10 @@ STATICFILES_DIRS = [
 USE_S3 = True # os.getenv('USE_S3') ==
 if USE_S3:
     # aws settings
-    AWS_ACCESS_KEY_ID = 'AKIA4IST2PP6KT2H7A7X'  #os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = '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' # os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = 'edtech-reviews-media' #os.getenv('AWS_STORAGE_BUCKET_NAME')
+    print(environ)
+    AWS_ACCESS_KEY_ID = environ['AWS_ACCESS_KEY_ID'] #'AKIA4IST2PP6KT2H7A7X'  #
+    AWS_SECRET_ACCESS_KEY = environ['AWS_SECRET_ACCESS_KEY'] #'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' # 
+    AWS_STORAGE_BUCKET_NAME = environ['AWS_STORAGE_BUCKET_NAME'] #'edtech-reviews-media' #
     AWS_DEFAULT_ACL = 'public-read'
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
